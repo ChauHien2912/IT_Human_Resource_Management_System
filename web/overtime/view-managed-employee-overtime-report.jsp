@@ -13,11 +13,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-                        <link rel="stylesheet" type="text/css" href="css/view.css">
+        <link rel="stylesheet" type="text/css" href="CSS/view.css">
 
     </head>
     <body>
-
         <form action="OverTimeController">
             ID: <input type="text" name="searchOverTimeReportById" >
             Date: <input type="date" name="searchOverTimeReportByDate" >
@@ -27,7 +26,7 @@
         <%
             List<OverTimeReport_DTO> listReport = null;
             listReport = (List<OverTimeReport_DTO>) request.getAttribute("LIST_MANAGED_EMPLOYEE_OVERTIME_REPORT");
-            if (listReport.size()!=0) {
+            if (listReport != null) {
         %>
         <table border="1">
             <thead>
@@ -61,7 +60,17 @@
                     <td><%=report.getDateName()%></td>
                     <td><%=report.getOtHours()%></td>
                     <td><%=report.getCoSalary()%></td>
+                    <%
+                        if (report.getReason() == null) {
+                    %>
+                    <td>None</td>
+                    <%
+                    } else {
+                    %>
                     <td><%=report.getReason()%></td>
+                    <%
+                        }
+                    %>
                     <%
                         if (report.isIsStatus() == null) {
                             status = "Waiting";
@@ -87,9 +96,16 @@
                 </td>
                 <%
                 } else {
+                    if (report.getReasonReject() == null || report.getReasonReject().isEmpty()) {
                 %>
+                <td>None</td>
+                <%
+                } else {
+                %>
+
                 <td><%=report.getReasonReject()%></td>
                 <%
+                        }
                     }
                 %>
                 </tr>

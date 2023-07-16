@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-                <link rel="stylesheet" type="text/css" href="css/view.css">
+                <link rel="stylesheet" type="text/css" href="CSS/view.css">
     </head>
     <body>
 
@@ -90,7 +90,7 @@
         }
     %>
     <%
-        String message = (String) request.getParameter("MESSAGE");
+        String message = (String) request.getAttribute("MESSAGE");
         if (message != null) {
     %>
     <%=message%>

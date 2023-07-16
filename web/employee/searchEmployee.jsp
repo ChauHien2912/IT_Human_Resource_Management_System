@@ -14,6 +14,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <%
             String search = (String) request.getParameter("search");
             if (search == null) {
@@ -21,23 +23,47 @@
             }
             String isActive = (String) request.getAttribute("STATUS_CONTRACT");
         %>
-        <p>Status</p>
-        <form action="EmployeeController">
-            <select name="statusActive" tabindex="1">
-                <option value="All" <%= isActive != null
-                        && isActive.equals("All")
-                        ? "selected" : ""%>>All</option>
-                <option value="Working" <%= isActive != null
-                        && isActive.equals("Working")
-                        ? "selected" : ""%>>Working</option>
-                <option value="Not Working" <%= isActive != null
-                        && isActive.equals("Not Working")
-                        ? "selected" : ""%> >Not Working</option>
-            </select>
-            <input placeholder="ID or full name" type="text" name="search" value="<%= search%>"/>
-            <input type="hidden" name="action" value="Search Employee"/>
-            <input type="submit" value="Search"/>
-        </form>
+
+        <!--        <form action="EmployeeController">
+                    <select name="statusActive" tabindex="1">
+                        <option value="All" <%= isActive != null
+                                && isActive.equals("All")
+                                ? "selected" : ""%>>All</option>
+                        <option value="Working" <%= isActive != null
+                                && isActive.equals("Working")
+                                ? "selected" : ""%>>Working</option>
+                        <option value="Not Working" <%= isActive != null
+                                && isActive.equals("Not Working")
+                                ? "selected" : ""%> >Not Working</option>
+                    </select>
+                    <input placeholder="ID or full name" type="text" name="search" value="<%= search%>"/>
+                    <input type="hidden" name="action" value="Search Employee"/>
+                    <input type="submit" value="Search"/>
+                </form>-->
+        <div class="row">
+            <div class="col-lg-6">
+                <form action="EmployeeController">
+
+                    <div class="input-group">
+                        <select name="statusActive" tabindex="1">
+                            <option value="All" <%= isActive != null
+                                    && isActive.equals("All")
+                                    ? "selected" : ""%>>All</option>
+                            <option value="Working" <%= isActive != null
+                                    && isActive.equals("Working")
+                                    ? "selected" : ""%>>Working</option>
+                            <option value="Not Working" <%= isActive != null
+                                    && isActive.equals("Not Working")
+                                    ? "selected" : ""%> >Not Working</option>
+                        </select>
+                        <input type="text" class="form-control"  placeholder="ID or full name" name="search" value="<%= search%>"/>
+                        <input type="hidden" name="action" value="Search Employee"/>
+                        <input class="btn btn-success" type="submit" value="Search"/> 
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br/><br/>
 
         <!--Print List-->    
         <%
@@ -50,7 +76,7 @@
             if (listEmployee != null) {
                 if (!listEmployee.isEmpty()) {
         %>
-        <table border="1">
+        <table border="1" class="table">
             <thead>
                 <tr>
                     <th>No</th>
@@ -93,7 +119,7 @@
                         <form action="EmployeeController">
                             <input type="hidden" name="search" value="<%=search%>">
                             <input type="hidden" name="statusActive" value="<%=isActive%>">
-                            <input type="submit" value="Show Detail"/>                            
+                            <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" value="Show Detail"/>                            
                             <input type="hidden" name="action" value="Show Employee Detail"/>
                             <input type="hidden" name="employeeID" value="<%= employee.getEmployeeID()%>"/>
                         </form>
@@ -103,7 +129,7 @@
                             <input type="hidden" name="search" value="<%=search%>">
                             <input type="hidden" name="statusActive" value="<%=isActive%>">
                             <input type="hidden" name="employeeID" value="<%=employee.getEmployeeID()%>">
-                            <input type="submit" value="View Contract">
+                            <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" value="View Contract">
                             <input type="hidden" name="action" value="View Employee Contract Detail"/>
                         </form>
                     </td>

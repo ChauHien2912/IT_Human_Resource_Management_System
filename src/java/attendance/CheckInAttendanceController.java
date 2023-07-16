@@ -30,8 +30,8 @@ import userlogin.User_Login_DTO;
 @WebServlet(name = "CheckInAttendanceController", urlPatterns = {"/CheckInAttendanceController"})
 public class CheckInAttendanceController extends HttpServlet {
 
-    private static final String ERROR = "/attendance/checkAttendance.jsp";
-    private static final String SUCCESS = "/attendance/checkAttendance.jsp";
+    private static final String ERROR = "/dashboard/dashBoard.jsp";
+    private static final String SUCCESS = "/dashboard/dashBoard.jsp";
     private static String CHECKIN_SUCCESS = "CheckIn Successfully!";
     private static String CHECKOUT_SUCCESS = "CheckOut Successfully";
 

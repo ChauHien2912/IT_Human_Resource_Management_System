@@ -46,7 +46,7 @@ public class ViewInformationController extends HttpServlet {
             log("error at SearchController" + e.toString());
         } finally {
             //request.setAttribute("URL", url);
-            request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher("employee/viewEmployeeInformation.jsp").forward(request, response);
         }
     }
 

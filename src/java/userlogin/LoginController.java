@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());
         } finally {
-            //  request.setAttribute("URL", "dashboard/dashBoard.jsp");
+              request.setAttribute("URL", "/dashboard/dashBoard.jsp");
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

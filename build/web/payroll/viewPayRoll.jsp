@@ -13,13 +13,15 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <h1>Hello World!</h1>
         <%
             List<Payroll_DTO> listPayRoll = (List<Payroll_DTO>) request.getAttribute("LIST_PAYROLL");
             if (listPayRoll != null) {
                 if (listPayRoll.size() > 0) {
         %>    
-        <table border="1">
+        <table border="1" class="table">
             <thead>
                 <tr>
                     <th>Pay ID</th>
@@ -33,7 +35,7 @@
                     <th>BHTN</th>
                     <th>TNCN</th>
                     <th>allowance</th>
-                     <th>total</th>
+                    <th>total</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,19 +44,19 @@
                 %>
             <form action="PayrollController">
                 <tr>   
-                    <td><%= payRoll.getPayID() %></td>
-                    <td><%= payRoll.getEmployeeID() %></td>
-                    <td><%= payRoll.getPaidDate() %></td>
-                    <td><%= payRoll.getOfficeHours() %></td>
-                    <td><%= payRoll.getOtHours() %></td>
-                    <td><%= payRoll.getOt_income() %></td>
-                    <td><%= payRoll.getStand_income() %></td>
-                    <td><%= payRoll.getBHXH() %></td>
-                    <td><%= payRoll.getBHTN() %></td>
-                    <td><%= payRoll.getTNCN() %></td>
-                    <td><%= payRoll.getAllowance() %></td>
-<!--                    <td><%= payRoll.getTotalHours() %></td>-->
-                    <td><%= payRoll.getTotal() %></td>
+                    <td><%= payRoll.getPayID()%></td>
+                    <td><%= payRoll.getEmployeeID()%></td>
+                    <td><%= payRoll.getPaidDate()%></td>
+                    <td><%= payRoll.getOfficeHours()%></td>
+                    <td><%= payRoll.getOtHours()%></td>
+                    <td><%= payRoll.getOt_income()%></td>
+                    <td><%= payRoll.getStand_income()%></td>
+                    <td><%= payRoll.getBHXH()%></td>
+                    <td><%= payRoll.getBHTN()%></td>
+                    <td><%= payRoll.getTNCN()%></td>
+                    <td><%= payRoll.getAllowance()%></td>
+<!--                    <td><%= payRoll.getTotalHours()%></td>-->
+                    <td><%= payRoll.getTotal()%></td>
                 </tr>
             </form>
             <%
@@ -74,11 +76,11 @@
         }
     %>
     <%
-            String mes = (String) request.getAttribute("MESSAGE");
-            if (mes == null) {
-                mes = "";
-            }
-        %>
-        <%=mes%>    
-    </body>  
+        String mes = (String) request.getAttribute("MESSAGE");
+        if (mes == null) {
+            mes = "";
+        }
+    %>
+    <%=mes%>    
+</body>  
 </html>

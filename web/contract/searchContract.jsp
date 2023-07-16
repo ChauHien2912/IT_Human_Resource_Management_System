@@ -38,25 +38,34 @@
                 </form>-->
 
         <!--Search-->
-        <form action="ContractController">
-            <select name="statusContract" class="gender" tabindex="1">
-                    <option value="All" <%= statusContract != null
-                            && statusContract.equals("All")
-                            ? "selected" : ""%>>All</option>
-                <option value="Rejected" <%= statusContract != null
-                        && statusContract.equals("Rejected")
-                        ? "selected" : ""%>>Rejected</option>
-                <option value="Approved" <%= statusContract != null
-                        && statusContract.equals("Approved")
-                        ? "selected" : ""%> >Approved</option>
-                <option value="Processing"  <%= statusContract != null
-                        && statusContract.equals("Processing")
-                        ? "selected" : ""%>>Processing</option>
-            </select><br/>
-            <input type="text" name="search" value="<%= search%>"/>
-            <input type="hidden" name="action" value="Search Contract"/>
-            <input type="submit" value="Search"/>
-        </form>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <form action="ContractController">
+
+                    <div class="input-group">
+                        <select name="statusContract" class="gender" tabindex="1">
+                            <option value="All" <%= statusContract != null
+                                    && statusContract.equals("All")
+                                    ? "selected" : ""%>>All</option>
+                            <option value="Rejected" <%= statusContract != null
+                                    && statusContract.equals("Rejected")
+                                    ? "selected" : ""%>>Rejected</option>
+                            <option value="Approved" <%= statusContract != null
+                                    && statusContract.equals("Approved")
+                                    ? "selected" : ""%> >Approved</option>
+                            <option value="Processing"  <%= statusContract != null
+                                    && statusContract.equals("Processing")
+                                    ? "selected" : ""%>>Processing</option>
+                        </select>
+                        <input type="text" name="search" class="form-control" value="<%= search%>"/>
+                        <input type="hidden" name="action" value="Search Contract"/>
+                        <input class="btn btn-success" type="submit" value="Search"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br>
 
         <!--Print List-->    
         <%
@@ -69,7 +78,7 @@
             if (listCandidateContract != null) {
                 if (!listCandidateContract.isEmpty()) {
         %>
-        <table border="1">
+        <table border="1" class="table">
             <thead>
                 <tr>
                     <th>No</th>
@@ -96,12 +105,12 @@
                     <td><%= String.valueOf(tempContract.getStartDate())%></td>
                     <td><%= tempContract.getSalary()%></td>
                     <td><%= tempContract.getStatus()%></td>                        
-                    <td>
+                    <td class="d-flex gap-2 justify-content-between">
                         <input type="hidden" name="action" value="Show Detail Temporary Contract"/>
                         <input type="hidden" name="candidateID" value="<%= candidate.getId()%>"/>
                         <input type="hidden" name="contractID" value="<%= tempContract.getContractID()%>"/>
                         <input type="hidden" name="statusContract" value="<%=statusContract%>"/>
-                        <input type="submit" value="Show Detail"/>
+                        <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" value="Show Detail"/>
                     </td>
                 </tr>                
             </form>

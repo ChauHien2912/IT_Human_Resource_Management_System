@@ -1,8 +1,3 @@
-<%-- 
-    Document   : main
-    Created on : Jun 22, 2023, 10:06:46 PM
-    Author     : flami
---%>
 
 <%@page import="userlogin.User_Login_DTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +9,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Responesive Admin Dashboard | Redesign</title>
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="CSS/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+
     </head>
 
     <body>
@@ -23,353 +24,106 @@
             if (!userLogin.getRoleName().equalsIgnoreCase("HRM")) {
                 return;
             }
-
         %>
-        <header>
-            <div class="toggle">
-                <ion-icon name="menu-outline"></ion-icon>
-                                                <span>HRM</span>
-
-            </div>
-            <div class="user-info">
-                <div class="user-options">
-                    <a href="#">Đăng xuất</a>
-                    <a href="#">Xem thông tin cá nhân</a>
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="bi bi-github"></i> HRM</h3>
                 </div>
-            </div>
-            <a href="#">
-                <div class="user">
-                    <img src="<%=userLogin.getImage()%>" alt="Hình ảnh người dùng">
+
+                <ul class="list-unstyled components">
+                    <!--Home Page-->
+                    <li class="active">
+                        <a href="#" class="includeButton" data-url="dashboard/dashBoard.jsp">
+                            <i class="bi bi-house-door"></i> Home Page
+                        </a>
+                    </li>
+                    <!--View Information-->
+                    <li>
+                        <a href="#viewSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-filter-square"></i>  View Information</a>
+                        <ul class="collapse list-unstyled" id="viewSubmenu">
+                            <li><a href="#" class="includeButton" data-url="EmployeeController?action=Show Information">User Profile</a></li>
+                            <li><a href="#" class="includeButton" data-url="employee/searchEmployee.jsp">Staff Information</a></li>
+                        </ul>
+                    </li>
+                    <!--OverTime-->
+                    <li>
+                        <a href="#overSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Overtime Report</a>
+                        <ul class="collapse list-unstyled" id="leaveSubmenu">
+                            <li class="includeButton" data-url="overtime/a.jsp"><a href="#">HRS Report</a></li>
+                        </ul>
+                    </li>
+                    <!--Leavelog-->
+                    <li>
+                        <a href="#leaveSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Leave Application</a>
+                        <ul class="collapse list-unstyled" id="leaveSubmenu">
+                            <li class="includeButton" data-url="leavelog/view-managed-employee-leavelog-apply.jsp"><a href="#">HRS LeaveLog</a></li>
+                        </ul>
+                    </li>
+                    <!--Candidate-->
+                    <li>
+                        <a href="#candSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-newspaper"></i> Candidate</a>
+                        <ul class="collapse list-unstyled" id="candSubmenu">
+                            <li><a href="#" class="includeButton" data-url="contract/searchContract.jsp">Contract Candidate</a></li>
+                        </ul>
+                    </li>
+                    <!--Payroll-->
+                    <li>
+                        <a href="#payrollSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-newspaper"></i> Payroll</a>
+                        <ul class="collapse list-unstyled" id="candSubmenu">
+                            <li><a href="#" class="includeButton" data-url="PayrollController?action=Caculate Payroll">Caculate Payroll</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li><a href="LogoutController?action=Logout"> Logout </a> </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <button type="button" id="sidebarCollapse" class="btn">
+                            <i class="bi bi-list"></i>
+                            <span></span>
+                        </button>
+                        <div class="avatar dropdown ms-auto">
+                            <img src="Hinh-chan-dung-nam-dep.jpg" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Signout</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!--Noi dung-->
+                <div class="main">
+                    <div id="includedContent">
+                        <jsp:include page="${URL}"/>
+                    </div>
                 </div>
-            </a>
-            <div class="notification">
-                <ion-icon name="notifications-circle-outline"></ion-icon>
-            </div>
-
-
-        </header>
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="#" class="includeButton" data-url="createCandidate.jsp">
-                        <span class="icon"><ion-icon name="file-tray-full-outline"></ion-icon></span>
-                        <span class="title">Home Menu</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="toggleDropdown('information-dropdown')">
-                        <span class="icon"><ion-icon name="file-tray-full-outline"></ion-icon></span>
-                        <span class="title">View Information</span>
-                        <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
-                    </a>
-                    <div class="submenu" id="information-dropdown" style="display:none;">
-                        <a href="#"  class="includeButton" data-url="EmployeeController?action=Show Information">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <span class="title" style="padding-left: 20px;">User Profile</span>
-                        </a>
-                        <a href="#" class="includeButton" data-url="employee/searchEmployee.jsp">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">Staff Information</div>
-                        </a>                        
+                <footer>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>&copy; 2023 - Responsive Admin Dashboard</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-md-end">Designed by Your Name</p>
+                            </div>
+                        </div>
                     </div>
-                </li>
-
-                <li>
-                    <a href="#" onclick="toggleDropdown('overtime-dropdown')">
-                        <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
-                        <span class="title">OverTime Report</span>
-                        <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
-                    </a>
-                    <div class="submenu" id="overtime-dropdown" style="display:none;">
-                        <a href="#">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">Create</div>
-                        </a>
-                        <a href="#">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">Personal Reports</div>
-                        </a>
-                        <a href="#" class="includeButton" data-url="staff_1.jsp">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;" >Staff Reports</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#" onclick="toggleDropdown('leave-dropdown')">
-                        <span class="icon"><ion-icon name="calendar-number-outline"></ion-icon></span>
-                        <span class="title">Leave Application</span>
-                        <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
-                    </a>
-                    <div class="submenu" id="leave-dropdown" style="display:none;">
-                        <a href="#" class="includeButton" data-url="leavelog/view-managed-employee-leavelog-apply.jsp">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">HRS LeaveLog</div>
-                        </a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#" onclick="toggleDropdown('contract-dropdown')">
-                        <span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
-                        <span class="title">Candidate</span>
-                        <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
-                    </a>
-                    <div class="submenu" id="contract-dropdown" style="display:none;">
-                        <a href="#"  class="includeButton" data-url="contract/searchContract.jsp">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">Contract Candidate</div>
-                        </a>                        
-                    </div>
-                </li>
-                <li>
-                    <a href="#" onclick="toggleDropdown('payroll-dropdown')">
-                        <span class="icon"><ion-icon name="card-outline"></ion-icon></span>
-                        <span class="title">Pay Roll</span>
-                        <span class="arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
-                    </a>
-
-                    <div class="submenu" id="payroll-dropdown" style="display:none;">
-                        <a href="#" class="includeButton" data-url="PayrollController?action=Caculate Payroll">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">Caculate Payroll</div>
-                        </a>
-                        <a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRoll">
-                            <span class="icon"><ion-icon name="chevron-forward-circle-outline"></ion-icon></ion-icon></span>
-                            <div style="padding-left: 20px;">View Payroll</div>
-                        </a>
-                    </div>
-                </li>                
-            </ul>
-        </div>
-        <!--main-->
-        <div class="main">
-            <div id="includedContent">
-                <jsp:include page="${URL}" />
+                </footer>
             </div>
         </div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
 
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script>
-                        $(document).ready(function () {
-                            $(".includeButton").click(function () {
-                                var url = $(this).data("url");
-                                $.ajax({
-                                    url: url,
-                                    success: function (result) {
-                                        $("#includedContent").html(result);
-                                    }
-                                });
-                            });
-                        });
-                        function loadContent(url) {
-                            $.ajax({
-                                url: url,
-                                success: function (result) {
-                                    $(".main #includedContent").html(result);
-                                }
-                            });
-                        }
-//                        $(document).ready(function () {
-//                            $(".includeButton").click(function () {
-//                                var url = $(this).data("url");
-//                                sessionStorage.setItem("currentPage", url); // Lưu trạng thái vào sessionStorage
-//                                loadContent(url);
-//                            });
-//
-//                            // Kiểm tra nếu có trạng thái được lưu trong sessionStorage
-//                            var currentPage = sessionStorage.getItem("currentPage");
-//                            if (currentPage) {
-//                                loadContent(currentPage); // Tải nội dung từ trang đã lưu
-//                            }
-//                        });
-
-
-
-//                        $(document).ready(function () {
-//                            $(".includeButton").click(function () {
-//                                var url = $(this).data("url");
-//                                sessionStorage.setItem("currentPage", url); // Lưu trạng thái vào sessionStorage
-//                                loadContent(url);
-//                            });
-//
-//                            // Hàm tải nội dung từ URL đã lưu
-//                            function loadContent(url) {
-//                                $.ajax({
-//                                    url: url,
-//                                    success: function (result) {
-//                                        $("#includedContent").html(result);
-//                                    }
-//                                });
-//                            }
-//
-//                            // Kiểm tra nếu có trạng thái được lưu trong sessionStorage
-//                            var currentPage = sessionStorage.getItem("currentPage");
-//                            if (currentPage) {
-//                                loadContent(currentPage); // Tải nội dung từ trang đã lưu
-//                            }
-//                        });
-
-
-
-                        // Lắng nghe sự kiện click trên các thẻ <a> trong phần navigation
-                        document.addEventListener("DOMContentLoaded", function () {
-                            var navLinks = document.querySelectorAll(".navigation a");
-                            for (var i = 0; i < navLinks.length; i++) {
-                                navLinks[i].addEventListener("click", function () {
-                                    // Xóa class "active" khỏi tất cả các thẻ <a> trong navigation
-                                    for (var j = 0; j < navLinks.length; j++) {
-                                        navLinks[j].classList.remove("active");
-                                    }
-                                    // Thêm class "active" cho thẻ <a> được nhấn
-                                    this.classList.add("active");
-                                });
-                            }
-                        });
-
-
-                        // Lấy các phần tử cần sử dụng
-                        var userWrapper = document.querySelector('.user');
-                        var userOptions = document.querySelector('.user-options');
-
-// Xử lý sự kiện hover
-                        userWrapper.addEventListener('mouseover', function () {
-                            userOptions.classList.add('active');
-                        });
-
-                        userWrapper.addEventListener('mouseout', function (e) {
-                            // Kiểm tra nếu con trỏ chuột không nằm trên phần tử user-options
-                            if (!userOptions.contains(e.relatedTarget)) {
-                                userOptions.classList.remove('active');
-                            }
-                        });
-
-                        userOptions.addEventListener('mouseout', function (e) {
-                            // Kiểm tra nếu con trỏ chuột không nằm trên phần tử user hoặc user-options
-                            if (!userWrapper.contains(e.relatedTarget)) {
-                                userOptions.classList.remove('active');
-                            }
-                        });
-
-
-// Lấy thời gian hiện tại
-                        var currentTime = new Date();
-
-// Định dạng ngày tháng và thời gian
-                        var day = currentTime.getDate();
-                        var month = currentTime.getMonth() + 1; // Tháng bắt đầu từ 0
-                        var year = currentTime.getFullYear();
-                        var hours = currentTime.getHours();
-                        var minutes = currentTime.getMinutes();
-                        var seconds = currentTime.getSeconds();
-
-// Gán nội dung thời gian vào phần tử HTML
-                        var timeString = "Ngày " + day + "/" + month + "/" + year + ", Lúc " + hours + ":" + minutes + ":" + seconds;
-                        var currentTimeElement = document.getElementById("current-time");
-                        currentTimeElement.innerHTML = timeString;
-
-// Cập nhật thời gian sau mỗi giây
-                        setInterval(function () {
-                            // Lấy thời gian hiện tại
-                            currentTime = new Date();
-
-                            // Định dạng lại thời gian
-                            day = currentTime.getDate();
-                            month = currentTime.getMonth() + 1; // Tháng bắt đầu từ 0
-                            year = currentTime.getFullYear();
-                            hours = currentTime.getHours();
-                            minutes = currentTime.getMinutes();
-                            seconds = currentTime.getSeconds();
-
-                            // Gán nội dung thời gian vào phần tử HTML
-                            timeString = "Ngày " + day + "/" + month + "/" + year + ", Lúc " + hours + ":" + minutes + ":" + seconds;
-                            currentTimeElement.innerHTML = timeString;
-                        }, 1000); // Cập nhật sau mỗi giây (1000ms)
-//Menutoggle    
-                        let toggle = document.querySelector('.toggle');
-                        let navigation = document.querySelector('.navigation');
-                        let main = document.querySelector('.main');
-
-                        toggle.onclick = function () {
-                            navigation.classList.toggle('active');
-                            main.classList.toggle('active');
-                        }
-//add hovered class in selected list item
-                        let list = document.querySelectorAll('.navigation li');
-                        function activeLink() {
-                            list.forEach((item) =>
-                                item.classList.remove('hovered'));
-                            this.classList.add('hovered');
-                        }
-                        list.forEach((item) =>
-                            item.addEventListener('mouseover', activeLink));
-//Lấy đối tượng nút Logout
-                        const logoutButton = document.querySelector(".logout");
-
-//Gán sự kiện click cho nút Logout
-                        logoutButton.addEventListener('click', () => {
-                            const confirmLogout = confirm("Bạn có chắc muốn đăng xuất?"); //Hiển thị thông báo xác nhận
-
-                            if (confirmLogout) {
-                                // Nếu người dùng nhấn "OK" cho thông báo xác nhận, chuyển hướng người dùng tới trang khác.
-                                window.location.replace("login.html"); //chuyển hướng người dùng tới trang Google
-                            } else {
-                                // Nếu người dùng nhấn "Cancel" cho thông báo xác nhận, không làm gì cả.
-                                return;
-                            }
-                        });
-
-// Lấy thông tin về các menu item có submenu
-                        var itemsWithSubmenu = document.getElementsByClassName('has-submenu');
-
-// Lặp qua các menu item và xác định sự kiện click để hiển thị hoặc ẩn submenu tương ứng
-                        for (var i = 0; i < itemsWithSubmenu.length; i++) {
-                            var item = itemsWithSubmenu[i];
-                            item.addEventListener('click', function () {
-                                var submenu = this.nextElementSibling;
-                                if (submenu.classList.contains('active')) {
-                                    submenu.classList.remove('active');
-                                } else {
-                                    // Ẩn tất cả submenu
-                                    var submenus = document.querySelectorAll('.submenu.active');
-                                    for (var i = 0; i < submenus.length; i++) {
-                                        submenus[i].classList.remove('active');
-                                    }
-
-                                    // Hiển thị submenu của item được click
-                                    submenu.classList.add('active');
-                                }
-                            });
-                        }
-
-
-                        function toggleDropdown(id) {
-                            var dropdown = document.getElementById(id);
-                            if (dropdown.style.display === "none") {
-                                dropdown.style.display = "block";
-                            } else {
-                                dropdown.style.display = "none";
-                            }
-                        }
-
-                        const importLink = document.querySelector('link[rel="import"]');
-                        const content = importLink.import.querySelector('#childContent');
-                        document.body.appendChild(content.cloneNode(true));
-
-// ẩn hiện ở hình ảnh user
-//function showUserInfo() {
-//    var userOptions = document.querySelector('.user-options');
-//    userOptions.style.display = 'block';
-//}
-//
-//function hideUserInfo() {
-//    var userOptions = document.querySelector('.user-options');
-//    userOptions.style.display = 'none';
-//}
-        </script>
     </body>
-
 </html>

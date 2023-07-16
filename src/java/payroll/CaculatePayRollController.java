@@ -35,7 +35,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CaculatePayrollController", urlPatterns = {"/CaculatePayrollController"})
 public class CaculatePayrollController extends HttpServlet {
 
-    private static final String ERROR = "login/login.jsp";
+    private static final String ERROR = "payroll/viewPayroll.jsp";
     private static final String SUCCESS = "payroll/viewPayroll.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
