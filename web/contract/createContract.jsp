@@ -64,7 +64,7 @@
             <input placeholder="Type your Message Here...." name="description"
                    <%
                        if (tempContract.getDescription() == null)
-                           tempContract.setDescription("");
+                            tempContract.setDescription("");
                    %>
                    value="<%=tempContract.getDescription()%>" type="text"tabindex="3">
             <%=conErr.getNotationError()%>                            
