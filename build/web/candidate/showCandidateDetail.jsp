@@ -46,6 +46,20 @@
                                         ID: <%=candidateDetail.getId()%><br/><p>
 
                                         <i class="far fa-edit mb-5"></i>
+                                        <!--Update Form-->  
+                                        <%
+                                            if (status.equals("REJECTED") || status.equals("None")) {
+                                        %>
+                                    <div>
+                                        <form action="CandidateController" method="POST">
+                                            <input type="hidden" name="candidateID" value="<%=candidateDetail.getId()%>">
+                                            <input name="action" class="btn btn-sm btn-outline-danger rounded-0"
+                                                   type="submit"  value="Update" tabindex="2">
+                                        </form>            
+                                    </div>
+                                    <%
+                                        }
+                                    %>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body p-4">
@@ -117,91 +131,69 @@
         </section>
 
 
-        <%
-            ContractError contractErr = new ContractError();
+            <%
+                ContractError contractErr = new ContractError();
 
-            if (tempContract == null) {
-                tempContract = new TemporaryContractDTO();
-            }
-        %>
-
-        <!--Update Form-->  
-        <%
-            if (status.equals("REJECTED") || status.equals("None")) {
-        %>
-        <div>
-            <form action="CandidateController" method="POST">
-                <input type="hidden" name="candidateID" value="<%=candidateDetail.getId()%>">
-                <input name="action" type="submit"  value="Update" tabindex="2">
-            </form>            
-        </div>
-
-
-        <!--Contract Form-->  
-        <%
-            }
-            String statusContract = (String) request.getAttribute("STATUS_CONTRACT");
-            if (statusContract != null) {
-        %>
-        <p><%=statusContract%></p>
-        <%
-        } else {
-            ContractError conErr = (ContractError) request.getAttribute("ERROR_CONTRACT");
-            if (conErr == null) {
-                conErr = new ContractError();
-            }
-
-            if (!status.equals("None")) {
-        %>
-        <p>Contract of this candidate is created</p>
-        <%
-        } else {
-        %>
-        <form action="ContractController" method="POST">
-            <fieldset>
-                <label for="date">Start Date</label><br/>
-                <input type="date" name="startDate" min="<%=LocalDate.now().toString()%>"
-                       value="<%=tempContract.getStartDate()%>" tabindex="1">
-            </fieldset>
-            <fieldset>
-                <label for="date">Salary</label><br/>
-                <input type="text" name="salary" 
-                       <%
-                           String salary = (String) request.getAttribute("SALARYSTRING");
-                           if (salary == null) {
-                               salary = "";
-                           }
-                       %>
-                       value="<%=salary%>" tabindex="2" required>
-                <%=conErr.getSalaryError()%>   
-            </fieldset>
-            <fieldset>
-                <label for="description">Notation</label><br/>
-                <input placeholder="Type your Message Here...." name="description"
-                       <%
-                           if (tempContract.getDescription() == null)
-                               tempContract.setDescription("");
-                       %>
-                       value="<%=tempContract.getDescription()%>" type="text"
-                       tabindex="3">
-                <div class="errorMessage">  
-                    <%=conErr.getNotationError()%>                       
-                </div>                     
-            </fieldset>
-            <fieldset>
-                <input type="hidden" name="candidateID" value="<%=candidateDetail.getId()%>">
-                <input type="reset" tabindex="4">
-                <input name="action" type="submit"  value="Create Contract" tabindex="5">
-                <div class="errorMessage">  
-                    <%=conErr.getOtherError()%>                       
-                </div>   
-            </fieldset>
-        </form>
-        <%
-                    }
+                if (tempContract == null) {
+                    tempContract = new TemporaryContractDTO();
                 }
-                // session.removeAttribute("CANDIDATE");
+            %>
+
+
+            <!--Contract Form-->  
+            <%
+                String statusContract = (String) request.getAttribute("STATUS_CONTRACT");
+                if (statusContract != null) {
+            %>
+            <p><%=statusContract%></p>
+            <%
+            } else {
+                ContractError conErr = (ContractError) request.getAttribute("ERROR_CONTRACT");
+                if (conErr == null) {
+                    conErr = new ContractError();
+                }
+
+                if (!status.equals("None")) {
+                %>
+                <p>Contract of this candidate is created</p>
+                <%
+                } else {
+                    %>
+                    <form action="ContractController" method="POST">
+
+                        <label for="date">Start Date</label><br/>
+                        <input type="date" name="startDate" min="<%=LocalDate.now().toString()%>"
+                               value="<%=tempContract.getStartDate()%>" tabindex="1">
+
+                        <label for="date">Salary</label><br/>
+                        <input type="text" name="salary" 
+                               <%
+                                   String salary = (String) request.getAttribute("SALARYSTRING");
+                                   if (salary == null) {
+                                       salary = "";
+                                   }
+                               %>
+                               value="<%=salary%>" tabindex="2" required>
+                        <%=conErr.getSalaryError()%>   
+                        <label for="description">Notation</label><br/>
+                        <input placeholder="Type your Message Here...." name="description"
+                               <%
+                                   if (tempContract.getDescription() == null)
+                                       tempContract.setDescription("");
+                               %>
+                               value="<%=tempContract.getDescription()%>" type="text"tabindex="3">
+                        <%=conErr.getNotationError()%>                            
+                        <input type="hidden" name="candidateID" value="<%=candidateDetail.getId()%>">
+                        <input type="reset" tabindex="4">
+                        <input name="action" type="submit"  value="Create Contract" tabindex="5">
+                        <div class="errorMessage">  
+                            <%=conErr.getOtherError()%>                       
+                        </div>   
+                    </form>
+                    <%
+                }
             }
+        }
         %>
     </body>
 </html>

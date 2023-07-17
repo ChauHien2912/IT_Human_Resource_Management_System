@@ -39,6 +39,12 @@
                             <i class="bi bi-house-door"></i> Home Page
                         </a>
                     </li>
+                    <!--View Attendance-->
+                    <li >
+                        <a href="#viewAttendace" data-bs-toggle="collapse" aria-expanded="false" 
+                           class="includeButton" data-url="attendance/viewAttendance.jsp">
+                            <i class="bi bi-filter-square"></i>  View Attendance</a>
+                    </li>
                     <!--View Information-->
                     <li>
                         <a href="#viewSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-filter-square"></i>  View Information</a>
@@ -50,8 +56,8 @@
                     <!--OverTime-->
                     <li>
                         <a href="#overSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Overtime Report</a>
-                        <ul class="collapse list-unstyled" id="leaveSubmenu">
-                            <li class="includeButton" data-url="overtime/a.jsp"><a href="#">HRS Report</a></li>
+                        <ul class="collapse list-unstyled" id="overSubmenu">
+                            <li class="includeButton" data-url="overtime/view-managed-employee-overtime-report.jsp"><a href="#">HRS Report</a></li>
                         </ul>
                     </li>
                     <!--Leavelog-->

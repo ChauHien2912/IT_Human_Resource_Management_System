@@ -66,8 +66,8 @@ public class ViewManagedEmployeeLeaveLogApplicationController extends HttpServle
             url = SUCCESS;
             if (userLogin.getRoleName().equalsIgnoreCase("HRS")) {
                 URL = "main/mainHRS.jsp";
-            } else if (userLogin.getRoleName().equalsIgnoreCase("Staff")) {
-                URL = "main/mainStaff.jsp";
+            } else if (userLogin.getRoleName().equalsIgnoreCase("HRM")) {
+                URL = "main/mainHRM.jsp";
             }
         } catch (Exception e) {
             log("Error at ViewManagedEmployeeLeaveLogApplicationController" + e.toString());

@@ -25,7 +25,6 @@ import userlogin.User_Login_DTO;
 @WebServlet(name = "ViewPersonLeaveLogApplicationController", urlPatterns = {"/ViewPersonLeaveLogApplicationController"})
 public class ViewPersonLeaveLogApplicationController extends HttpServlet {
 
-    //HRS and HRM
     public static String EMPTY_LIST = "Don't have any report";
     public static String ERROR = "error.jsp";
     public static String SUCCESS = "/leavelog/view-person-leavelog-report.jsp";
@@ -62,8 +61,8 @@ public class ViewPersonLeaveLogApplicationController extends HttpServlet {
             
             if (userLogin.getRoleName().equalsIgnoreCase("HRS")) {
                 URL = "main/mainHRS.jsp";
-            } else if (userLogin.getRoleName().equalsIgnoreCase("HRM")) {
-                URL = "main/mainHRM.jsp";
+            } else if (userLogin.getRoleName().equalsIgnoreCase("Staff")) {
+                URL = "main/mainStaff.jsp";
             }
         } catch (Exception e) {
             log("Error at ViewPersonLeaveLogApplicationController" + e.toString());

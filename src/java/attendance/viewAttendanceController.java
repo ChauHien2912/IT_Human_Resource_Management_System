@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package overtime;
+package attendance;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -24,51 +24,57 @@ import userlogin.User_Login_DTO;
  *
  * @author Hào Cute
  */
-@WebServlet(name = "ViewPersonOverTimeReportController", urlPatterns = {"/ViewPersonOverTimeReportController"})
-public class ViewPersonOverTimeReportController extends HttpServlet {
+@WebServlet(name = "viewAttendanceController", urlPatterns = {"/viewAttendanceController"})
+public class viewAttendanceController extends HttpServlet {
 
-    //HRS and SS
+    public static String EMPTY_LIST = "Don't have any records";
     public static String ERROR = "error.jsp";
-    public static String SUCCESS = "/overtime/view-personal-overtime-report.jsp";
-
-    public static String EMPTY_LIST = "Don't have any report";
+    public static String SUCCESS = "/attendance/viewAttendance.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        String URL=ERROR;
+        String url = SUCCESS;
+        String URL = SUCCESS;
         try {
-            String stringSearchOverTimeReportByDate = request.getParameter("searchOverTimeReportByDate");
-            if (stringSearchOverTimeReportByDate == null) {
-                stringSearchOverTimeReportByDate = "";
+            String dateAttendance = request.getParameter("dateAttendance");
+            String employeeId = request.getParameter("employeeId");
+            if (dateAttendance == null) {
+                dateAttendance = "";
+            }
+            if (employeeId == null) {
+                employeeId = "";
             }
 
             HttpSession session = request.getSession();
             User_Login_DTO userLogin = (User_Login_DTO) session.getAttribute("USER_LOGIN");
-
-            ViewPersonOverTimeReportDAO DAO = new ViewPersonOverTimeReportDAO();
-            List<OverTimeReport_DTO> listPersonOverTimeReport = new ArrayList<>();
-            if (stringSearchOverTimeReportByDate.length() == 0) {
-                listPersonOverTimeReport = DAO.listPersonOverTimeReport(userLogin.getEmployeeId());
+            ViewAttendance_DAO DAO = new ViewAttendance_DAO();
+            List<ViewAttendance_DTO> listAttendanceOfEmployees = new ArrayList<>();
+            if (dateAttendance.length() == 0) {
+                listAttendanceOfEmployees = DAO.listAttendanceOfEmployees(employeeId, userLogin.getEmployeeId());
             } else {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                Date searchOverTimeReportByDate = new java.sql.Date(format.parse(stringSearchOverTimeReportByDate).getTime());
-                listPersonOverTimeReport = DAO.listPersonOverTimeReport(searchOverTimeReportByDate, userLogin.getEmployeeId());
+                Date date = new java.sql.Date(format.parse(dateAttendance).getTime());
+                LocalDate searchDateAttendance = date.toLocalDate();
+                listAttendanceOfEmployees = DAO.listAttendanceOfEmployees(employeeId, searchDateAttendance.getDayOfMonth(),
+                        searchDateAttendance.getMonthValue(), searchDateAttendance.getYear(), userLogin.getEmployeeId());
             }
-            if (listPersonOverTimeReport.size() > 0) {
-                request.setAttribute("LIST_PERSON_OVERTIME_REPORT", listPersonOverTimeReport);
+
+            if (listAttendanceOfEmployees.size() > 0) {
+                request.setAttribute("LIST_ATTENDANCE", listAttendanceOfEmployees);
             } else {
                 request.setAttribute("MESSAGE", EMPTY_LIST);
             }
             url = SUCCESS;
             if (userLogin.getRoleName().equalsIgnoreCase("HRS")) {
                 URL = "main/mainHRS.jsp";
-            } else if (userLogin.getRoleName().equalsIgnoreCase("Staff")) {
-                URL = "main/mainStaff.jsp";
+            } else if (userLogin.getRoleName().equalsIgnoreCase("HRM")) {
+                URL = "main/mainHRM.jsp";
             }
+
         } catch (Exception e) {
-            log("Error at ViewPersonOverTimeReportController" + e.toString());
+            url = ERROR;
+            log("Error at View Attendance" + e.toString());
         } finally {
             request.setAttribute("URL", url);
             request.getRequestDispatcher(URL).forward(request, response);

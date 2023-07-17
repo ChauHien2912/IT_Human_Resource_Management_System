@@ -49,7 +49,17 @@
                 <tr>
                     <td><%=count%></td>
                     <td><%=report.getDateLeave()%></td>
+                    <%
+                        if (report.getReason() == null || report.getReason().isEmpty()) {
+                    %>
+                    <td>None</td>
+                    <%
+                    } else {
+                    %>
                     <td><%=report.getReason()%></td>
+                    <%
+                        }
+                    %>
                     <%
                         if (report.getIsStatus() == null) {
                             status = "Waiting";

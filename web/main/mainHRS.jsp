@@ -37,15 +37,21 @@
                         <a href="#" class="includeButton" data-url="dashboard/dashBoard.jsp">
                             <i class="bi bi-house-door"></i> Home Menu
                         </a>
+                    </li>                    
+                    <!--View Attendance-->
+                    <li >
+                        <a href="#viewAttendace" data-bs-toggle="collapse" aria-expanded="false" 
+                           class="includeButton" data-url="attendance/viewAttendance.jsp">
+                            <i class="bi bi-filter-square"></i>  View Attendance</a>
                     </li>
                     <!--View Information-->
                     <li >
                         <a href="#viewSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-filter-square"></i>  View Infomation</a>
                         <ul class="collapse list-unstyled" id="viewSubmenu">
                             <li><a href="#" class="includeButton" data-url="EmployeeController?action=Show Information">User Profile</a></li>
-                           
+
                             <li><a href="#" class="includeButton" data-url="SearchEmployeeController?search=">Staff Information</a></li>
-                            
+
                             <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRoll">View Pay Roll</a></li>
                         </ul>
                     </li>

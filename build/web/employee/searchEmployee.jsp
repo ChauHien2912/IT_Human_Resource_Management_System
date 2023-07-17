@@ -23,23 +23,7 @@
             }
             String isActive = (String) request.getAttribute("STATUS_CONTRACT");
         %>
-
-        <!--        <form action="EmployeeController">
-                    <select name="statusActive" tabindex="1">
-                        <option value="All" <%= isActive != null
-                                && isActive.equals("All")
-                                ? "selected" : ""%>>All</option>
-                        <option value="Working" <%= isActive != null
-                                && isActive.equals("Working")
-                                ? "selected" : ""%>>Working</option>
-                        <option value="Not Working" <%= isActive != null
-                                && isActive.equals("Not Working")
-                                ? "selected" : ""%> >Not Working</option>
-                    </select>
-                    <input placeholder="ID or full name" type="text" name="search" value="<%= search%>"/>
-                    <input type="hidden" name="action" value="Search Employee"/>
-                    <input type="submit" value="Search"/>
-                </form>-->
+        
         <div class="row">
             <div class="col-lg-6">
                 <form action="EmployeeController">

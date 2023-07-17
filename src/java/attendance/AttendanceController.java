@@ -21,6 +21,8 @@ public class AttendanceController extends HttpServlet {
 
     private static final String CHECKIN = "CheckIn";
     private static final String CHECKIN_ATTENDANCE_CONTROLLER = "CheckInAttendanceController";
+    private static final String VIEW_ATTENDANCE = "viewAttendance";
+    private static final String VIEW_ATTENDANCE_CONTROLLER = "viewAttendanceController";
     private static final String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -31,6 +33,8 @@ public class AttendanceController extends HttpServlet {
             String action = request.getParameter("action");
             if (CHECKIN.equals(action)) {
                 url = CHECKIN_ATTENDANCE_CONTROLLER;
+            }else if (VIEW_ATTENDANCE.equals(action)) {
+                url = VIEW_ATTENDANCE_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());

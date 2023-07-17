@@ -78,29 +78,31 @@
                                                 <th>Phone Number</th>
                                                 <th>Address</th>
                                                 <th>Detail</th>
+                                                <th>Contract</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <%
-                                                int count = 1;
-                                                for (CandidateDTO candidate : listCandidate) {
-                                            %> 
-                                        <form action="CandidateController">
                                             <tr>
-                                                <td><%= count++%></td>
-                                                <td><%= candidate.getId()%></td>
-                                                <td><%= candidate.getFullName()%></td>
-                                                <td><%= candidate.getGender()%></td>
-                                                <td><%= candidate.getDateOfBrith()%></td>
-                                                <td><%= candidate.getPhoneNumber()%></td>
-                                                <td><%= candidate.getAddress()%></td>
-                                                <td class="d-flex gap-2 justify-content-between">
-                                                    <input  class="btn btn-sm btn-outline-danger rounded-0" type="submit" value="Show Detail"/>                            
-                                                    <input type="hidden" name="action" value="Show Candidate Detail"/>
-                                                    <input type="hidden" name="candidateID" value="<%= candidate.getId()%>"/>
-                                                </td>
-                                            </tr>
+                                                <%
+                                                    int count = 1;
+                                                    for (CandidateDTO candidate : listCandidate) {
+                                                %> 
+                                        <form action="CandidateController">
+                                            <td><%= count++%></td>
+                                            <td><%= candidate.getId()%></td>
+                                            <td><%= candidate.getFullName()%></td>
+                                            <td><%= candidate.getGender()%></td>
+                                            <td><%= candidate.getDateOfBrith()%></td>
+                                            <td><%= candidate.getPhoneNumber()%></td>
+                                            <td><%= candidate.getAddress()%></td>
+                                            <td class="d-flex gap-2 justify-content-between">
+                                                <input  class="btn btn-sm btn-outline-danger rounded-0" type="submit" value="Show Detail"/>                            
+                                                <input type="hidden" name="action" value="Show Candidate Detail"/>
+                                                <input type="hidden" name="candidateID" value="<%= candidate.getId()%>"/>
+                                            </td>
                                         </form>
+                                            <td><a href="contract/createContract.jsp" class="btn btn-sm btn-outline-danger rounded-0"> Create</a></td>
+                                        </tr>
                                         <%
                                             }
                                         %>

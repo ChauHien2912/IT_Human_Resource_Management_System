@@ -21,7 +21,7 @@ public class PayrollController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String PAYROLL = "Caculate Payroll";
-    private static final String PAYROLL_CONTROLLER = "CaculatePayrollController";
+    private static final String PAYROLL_CONTROLLER = "CaculatePayRollController";
 
     private static final String VIEWPAYROLL = "ViewPayRoll";
     private static final String VIEWPAYROLL_CONTROLLER = "ViewPayrollController";

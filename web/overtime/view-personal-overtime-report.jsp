@@ -58,7 +58,17 @@
                     <td><%=report.getDateName()%></td>
                     <td><%=report.getOtHours()%></td>
                     <td><%=report.getCoSalary()%></td>
+                    <%
+                        if (report.getReason() == null || report.getReason().isEmpty()) {
+                    %>
+                    <td>None</td>
+                    <%
+                    } else {
+                    %>
                     <td><%=report.getReason()%></td>
+                    <%
+                        }
+                    %>
                     <%
                         if (report.isIsStatus() == null) {
                             status = "Waiting";
@@ -71,7 +81,17 @@
                         }
                     %>
                     <td><%=status%></td>
+                    <%
+                        if (report.getReasonReject()== null || report.getReasonReject().isEmpty()) {
+                    %>
+                    <td>None</td>
+                    <%
+                    } else {
+                    %>
                     <td><%=report.getReasonReject()%></td>
+                    <%
+                        }
+                    %>
                     <%
                         if (status.equals("Waiting") || status.equals("Rejected")) {
                     %>
@@ -97,7 +117,7 @@
         }
     %>
     <%
-        String message = (String) request.getParameter("MESSAGE");
+        String message = (String) request.getAttribute("MESSAGE");
         if (message != null) {
     %>
     <%=message%>
