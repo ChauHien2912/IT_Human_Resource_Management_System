@@ -10,23 +10,26 @@ import java.time.LocalDateTime;
  * @author admin
  */
 public class Attendance_DTO {
+
     private int attendanceId;
-    private float  startHours;
-    private float  endHours;
+    private float startHours;
+    private float endHours;
     private float officeHours;
     private float totalHours;
     private String employeeID;
+    private float salary;
 
     public Attendance_DTO() {
     }
 
-    public Attendance_DTO(int attendanceId, float startHours, float endHours, float officeHours, float totalHours, String employeeID) {
+    public Attendance_DTO(int attendanceId, float startHours, float endHours, float officeHours, float totalHours, String employeeID, float salary) {
         this.attendanceId = attendanceId;
         this.startHours = startHours;
         this.endHours = endHours;
         this.officeHours = officeHours;
         this.totalHours = totalHours;
         this.employeeID = employeeID;
+        this.salary = salary;
     }
 
     public int getAttendanceId() {
@@ -77,7 +80,12 @@ public class Attendance_DTO {
         this.employeeID = employeeID;
     }
 
-    
-    
-    
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
+
 }

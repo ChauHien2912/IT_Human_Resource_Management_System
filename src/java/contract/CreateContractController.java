@@ -22,8 +22,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author flami 
- * This servlet class use to create temporary contract from HRS
+ * @author flami This servlet class use to create temporary contract from HRS
  */
 @WebServlet(name = "CreateContractController", urlPatterns = {"/CreateContractController"})
 public class CreateContractController extends HttpServlet {
@@ -32,17 +31,18 @@ public class CreateContractController extends HttpServlet {
     public static final int TIEN_NHA_O = 1000000;
     public static final int TIEN_XANG_XE = 300000;
     public static final int TIEN_DIEN_THOAI = 200000;
-    private static final String ERROR = "/candidate/showCandidateDetail.jsp";
-    private static final String SUCCESS = "/candidate/searchCandidate.jsp";
+    private static final String ERROR = "/contract/createContract.jsp";
+    private static final String SUCCESS = "SearchCandidateController";
     private static final String APPROVERID = "HM1111";
     private final static String CONTRACT_ID_FORMAT = "TC1111";
-    private final static String URL = "main/mainHRS.jsp";
+    private final static String MAIN = "main/mainHRS.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String url = ERROR;
+        String URL = MAIN;
         boolean check = true;
         float salary = 0;
         float allowance = TIEN_COM_TRUA * 22 + TIEN_NHA_O + TIEN_XANG_XE + TIEN_DIEN_THOAI;
@@ -98,19 +98,19 @@ public class CreateContractController extends HttpServlet {
                 contract.setApproverID(APPROVERID);
                 contract.setCreatorID(creatorID);
                 if (dao.insertContractCandidate(contract)) {
-                    url = SUCCESS;
+                    URL = SUCCESS;
                 }
             } else {
                 request.setAttribute("ERROR_CONTRACT", error);
                 request.setAttribute("TEMPORARY_CONTRACT", contract);
                 request.setAttribute("SALARYSTRING", salaryString);
+                request.setAttribute("URL", url);
             }
             request.setAttribute("CANDIDATE", candidate);
             request.setAttribute("STATUS_CONTRACT", contract.getStatus());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            request.setAttribute("URL", url);
             request.getRequestDispatcher(URL).forward(request, response);
         }
     }

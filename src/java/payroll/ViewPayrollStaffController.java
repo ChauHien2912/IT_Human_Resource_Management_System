@@ -1,53 +1,61 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package userlogin;
+package payroll;
 
+import employee.Employee_Info_DAO;
+import employee.Employee_Info_DTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import userlogin.User_Login_DTO;
 
 /**
  *
- * @author flami
+ * @author PC-CAOKIENQUOC
  */
-@WebServlet(name = "UserLoginController", urlPatterns = {"/UserLoginController"})
-public class UserLoginController extends HttpServlet {
-
-    private static final String ERROR = "error.jsp";
-
-    private static final String USER_LOGIN = "Login";
-    private static final String USER_LOGIN_CONTROLLER = "LoginController";
-
-    private static final String FORGOTPASS = "ForgotPassword";
-    private static final String FORGOTPASS_CONTROLLER = "ForgotPasswordController";
+@WebServlet(name = "ViewPayrollStaffController", urlPatterns = {"/ViewPayrollStaffController"})
+public class ViewPayrollStaffController extends HttpServlet {
     
-    private static final String CHANGEPASS = "Change";
-    private static final String CHANGEPASS_CONTROLLER = "ChangePasswordController";
-
+    private static final String ERROR="dashboard/dashBoard.jsp";
+    private static final String SUCCESS ="payroll/viewPayRollStaff.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         String url = ERROR;
+        String URL = ERROR;
         try {
-            String action = request.getParameter("action");
-            if (USER_LOGIN.equals(action)) {
-                url = USER_LOGIN_CONTROLLER;
-            } else if (USER_LOGIN.equals(action)) {
-                url = USER_LOGIN_CONTROLLER;
-            } else if (FORGOTPASS.equals(action)) {
-                url = FORGOTPASS_CONTROLLER;
-            }else if (CHANGEPASS.equals(action)) {
-                url = CHANGEPASS_CONTROLLER;
+            //get logining user
+            String userID;
+            HttpSession session = request.getSession();
+            User_Login_DTO userLogin = (User_Login_DTO) session.getAttribute("USER_LOGIN");
+            userID = userLogin.getEmployeeId();
+
+            PayRoll_DAO payRollDAO = new PayRoll_DAO();
+            //get list employee from database
+            List<Payroll_DTO> listPayRoll = payRollDAO.getListPayRollStaff(userID);
+            if (!listPayRoll.isEmpty()) {
+                request.setAttribute("LIST_PAYROLL_STAFF", listPayRoll);
+                url = SUCCESS;
             }
+            //reload page
+            if (userLogin.getRoleName().equals("HRS")) {
+                URL = "main/mainHRS.jsp";
+            } else if (userLogin.getRoleName().equals("HRM")) {
+                URL = "main/mainHRM.jsp";
+            }
+            
         } catch (Exception e) {
-            log("Error at MainController" + e.toString());
+            e.printStackTrace();
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

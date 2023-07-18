@@ -24,7 +24,6 @@
             if (!userLogin.getRoleName().equalsIgnoreCase("Staff")) {
                 return;
             }
-
         %>
         <div class="wrapper">
             <!-- Sidebar Holder -->
@@ -53,7 +52,7 @@
                         <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-check"></i> OverTime Report</a>
                         <ul class="collapse list-unstyled" id="reportSubmenu">
                             <li><a href="#" class="includeButton" data-url="overtime/create-overtime-report.jsp">Create</a></li>
-                            <li><a href="#"  class="includeButton" data-url="overtime/view-personal-overtime-report.jsp">Personal Report</a></li>                            
+                            <li><a href="OverTimeController?action=ViewPersonOverTimeReport">Personal Report</a></li>                            
                         </ul>
                     </li>
                     <!--Leavelog-->
@@ -61,14 +60,12 @@
                         <a href="#leaveSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Leave Application</a>
                         <ul class="collapse list-unstyled" id="leaveSubmenu">
                             <li><a href="#" class="includeButton" data-url="leavelog/create-leavelog-apply.jsp">Create</a></li>
-                            <li><a href="#" class="includeButton" data-url="leavelog/view-person-leavelog-report.jsp">Personal Leave Log</a></li>
+                            <li><a href="LeaveLogController?action=ViewPersonLeaveLogApplication">Personal Leave Log</a></li>
                         </ul>
                     </li>
                 </ul>
 
-                <ul class="list-unstyled CTAs">
-                    <li><a href="LogoutController?action=Logout"> Logout </a> </li>
-                </ul>
+
             </nav>
 
             <!-- Page Content Holder -->
@@ -76,16 +73,29 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
-                        <button type="button" id="sidebarCollapse" class="btn">
+
+                        <button type="button" id="sidebarCollapse" class="btn btn-info">
                             <i class="bi bi-list"></i>
                             <span></span>
                         </button>
-                        <div class="avatar dropdown ms-auto">
-                            <img src="Hinh-chan-dung-nam-dep.jpg" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Signout</a>
+
+                        <div class="d-flex align-items-center ms-auto">
+                            <div class="btn-group me-3">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear fs-5"></i>
+                                </button>
+                                <ul class="dropdown-menu" >
+                                    <li><a href="#" class="includeButton dropdown-item" data-url="change_password.jsp">Change Password</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item " href="LogoutController?action=Logout">Sign Out</a></li>                        
+                                </ul>
+                            </div>
+
+                            <div class="">
+                                <img src="image_1.jpg" width="50" height="50" alt="" class="rounded-circle">
                             </div>
                         </div>
+
                     </div>
                 </nav>
 

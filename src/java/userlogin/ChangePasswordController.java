@@ -7,6 +7,8 @@ package userlogin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,13 +23,14 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ChangePasswordController", urlPatterns = {"/ChangePasswordController"})
 public class ChangePasswordController extends HttpServlet {
 
-    private static final String ERROR = "change_password.jsp";
-    private static final String SUCCESS = "change_password.jsp";
+    private static final String ERROR = "/change_password.jsp";
+    private static final String SUCCESS = "Logout_Controller";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String URL = ERROR;
         UserError userError = new UserError();
         try {
             String oldPassword = request.getParameter("oldPassword");
@@ -48,10 +51,20 @@ public class ChangePasswordController extends HttpServlet {
                 userError.setPasswordError("A new password cannot be the current password.");
             } else if (newPassword.length() < 8) {
                 checkValidation = false;
-                userError.setPasswordError("Password must be at least 8 characters");
-            } else if (!newPassword.equals(newConfirm)) {
-                checkValidation = false;
-                userError.setPasswordError("wrong confirm password");
+                userError.setPasswordError("Password must be more than 8 characters");
+            } else {
+                // Kiểm tra chữ viết hoa và chữ số
+                String pattern = "(?=.*[A-Z])(?=.*\\d)";
+                Pattern regex = Pattern.compile(pattern);
+                Matcher matcher = regex.matcher(newPassword);
+
+                if (!matcher.find()) {
+                    checkValidation = false;
+                    userError.setPasswordError("Password must contain at least 1 uppercase letter and 1 digit");
+                } else if (!newPassword.equals(newConfirm)) {
+                    checkValidation = false;
+                    userError.setPasswordError("wrong confirm password");
+                }
             }
             if (checkValidation) {
                 User_Login_DTO user = new User_Login_DTO(loginUser.getUserID(), newPassword, true, "", "");
@@ -59,20 +72,28 @@ public class ChangePasswordController extends HttpServlet {
                 if (checkUpdate) {
                     loginUser.setPassword(newPassword);
                     session.setAttribute("USER_LOGIN", loginUser);
-                    request.setAttribute("MESSAGE", "change password succesfully");
+                    request.setAttribute("MESSAGE", "Change password succesfully");
                     url = SUCCESS;
-                    
+
                 } else {
                     request.setAttribute("MESSAGE", "Can't not change password");
                 }
             } else {
                 request.setAttribute("USER_ERROR", userError);
             }
-
+            
+            if (loginUser.getRoleName().equalsIgnoreCase("HRS")) {
+                URL = "main/mainHRS.jsp";
+            } else if (loginUser.getRoleName().equalsIgnoreCase("HRM")) {
+                URL = "main/mainHRM.jsp";
+            }else if (loginUser.getRoleName().equalsIgnoreCase("HRM")){
+                 URL = "main/mainStaff.jsp";
+            }
         } catch (Exception e) {
             log("error at ChangPasswordController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            request.setAttribute("URL", url);
+            request.getRequestDispatcher(URL).forward(request, response);
         }
     }
 

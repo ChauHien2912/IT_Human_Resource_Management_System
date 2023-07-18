@@ -36,4 +36,9 @@ public class AttendanceService {
         }
         return  officeHour;
     }
+    
+    public float calculateSalaryDate(float offHour, float salary){
+        float totalSalarybyDate = (float)(offHour * salary);     
+        return totalSalarybyDate;
+    }
 }

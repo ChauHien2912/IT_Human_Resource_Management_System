@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import dashbar.DashboardDAO;
+import java.time.LocalDate;
 
 /**
  *
@@ -30,6 +32,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String dashBoardPath="";
         try {
             String userID = request.getParameter("userID");
             String password = request.getParameter("password");
@@ -52,15 +55,37 @@ public class LoginController extends HttpServlet {
                     Session.setAttribute("USER_LOGIN", userLogin);
                     url = HRM;
                 }
+                DashboardDAO dashBardDAO = new DashboardDAO();
+//                int count = dashBardDAO.countTotalLeaveLog(userLogin.getEmployeeId());
+//                request.setAttribute("TOTAL_LEAVE_LOG", count);
+                int totalStaff = dashBardDAO.getNumberStaff();
+                int totalHRS = dashBardDAO.getNumberHRStaff();
+                int hrsAttendance = dashBardDAO.getAttendanceHRStaff(LocalDate.now());
+                int staffAttendance = dashBardDAO.getAttendanceStaff(LocalDate.now());
+                int leavePerson = dashBardDAO.getTotal() - (hrsAttendance + staffAttendance);
+                int totalPerson = totalStaff + totalHRS;
+                
+                request.setAttribute("totalStaff", totalStaff);                
+                request.setAttribute("totalHRS", totalHRS);                
+                request.setAttribute("hrsAttendance", hrsAttendance);                
+                request.setAttribute("staffAttendance", staffAttendance);                
+                request.setAttribute("leavePerson", leavePerson);                
+                request.setAttribute("totalPerson", totalPerson);
 
             } else {
                 request.setAttribute("ERROR_MESSAGE", "Tài khoản không tồn tại hoặc sai mật khẩu");
+            }
+            //reload page
+            if (userLogin.getRoleName().equalsIgnoreCase("HRM")) {
+                dashBoardPath = "/dashboard/dashBoardHRM.jsp";
+            } else {
+                dashBoardPath = "/dashboard/dashBoard.jsp";
             }
 
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());
         } finally {
-              request.setAttribute("URL", "/dashboard/dashBoard.jsp");
+            request.setAttribute("URL", dashBoardPath);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

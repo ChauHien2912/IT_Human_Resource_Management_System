@@ -38,7 +38,7 @@ public class CreateCandidateController extends HttpServlet {
     private final static String ERROR = "/candidate/createCandidate.jsp";
     private final static String SUCCESS = "/candidate/searchCandidate.jsp";
     private final static String URL = "main/mainHRS.jsp";
-    private final static String SAVE_DIR = "imageCandidate";
+    private final static String SAVE_DIR = "personalImage";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

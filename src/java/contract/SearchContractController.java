@@ -56,7 +56,6 @@ public class SearchContractController extends HttpServlet {
             }
             request.setAttribute("STATUS_CONTRACT", statusContract);
             request.setAttribute("search", search);
-            request.setAttribute("action", "a");
 
             //reload page
             if (userLogin.getRoleName().equalsIgnoreCase("HRS")) {

@@ -19,65 +19,59 @@
         <!--Contract Form-->  
         <%
             CandidateDTO candidateDetail = (CandidateDTO) request.getAttribute("CANDIDATE");
-            if (candidateDetail != null) {
-                TemporaryContractDTO tempContract = (TemporaryContractDTO) request.getAttribute("TEMPORARY_CONTRACT");
-                String status = "";
-                if (tempContract == null || tempContract.getStatus() == null) {
-                    status = "None";
-                } else {
-                    status = tempContract.getStatus();
-                }
-                String statusContract = (String) request.getAttribute("STATUS_CONTRACT");
-                if (statusContract != null) {
-        %>
-        <p><%=statusContract%></p>
-        <%
-        } else {
+            TemporaryContractDTO tempContract = (TemporaryContractDTO) request.getAttribute("TEMPORARY_CONTRACT");
             ContractError conErr = (ContractError) request.getAttribute("ERROR_CONTRACT");
             if (conErr == null) {
                 conErr = new ContractError();
             }
-
-            if (!status.equals("None")) {
         %>
-        <p>Contract of this candidate is created</p>
-        <%
-        } else {
-        %>
-        <form action="ContractController" method="POST">
+        <div class="container">  
+            <form class="card mb-3 shadow" action="ContractController" method="POST">
+                <br>
+                <h1 style="text-align: center;">Create Contract</h1><br>
+                <div class="content col-12-md">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-6 form-group">
+                            <label for="date"><h3>Start Date</h3></label><br/>
+                            <input style="width: 100%; height: 2.5em" type="date" name="startDate" min="<%=LocalDate.now().toString()%>"
+                                   value="<%= (tempContract != null) ? tempContract.getStartDate() : ""%>" tabindex="1" required=""><br/>
+                                           </div>
+                            <div class="col-md-6 form-group">
 
-            <label for="date">Start Date</label><br/>
-            <input type="date" name="startDate" min="<%=LocalDate.now().toString()%>"
-                   value="<%=tempContract.getStartDate()%>" tabindex="1">
-
-            <label for="date">Salary</label><br/>
-            <input type="text" name="salary" 
-                   <%
-                       String salary = (String) request.getAttribute("SALARYSTRING");
-                       if (salary == null) {
-                           salary = "";
-                       }
-                   %>
-                   value="<%=salary%>" tabindex="2" required>
-            <%=conErr.getSalaryError()%>   
-            <label for="description">Notation</label><br/>
-            <input placeholder="Type your Message Here...." name="description"
-                   <%
-                       if (tempContract.getDescription() == null)
-                            tempContract.setDescription("");
-                   %>
-                   value="<%=tempContract.getDescription()%>" type="text"tabindex="3">
-            <%=conErr.getNotationError()%>                            
-            <input type="hidden" name="candidateID" value="<%=candidateDetail.getId()%>">
-            <input type="reset" tabindex="4">
-            <input name="action" type="submit"  value="Create Contract" tabindex="5">
-            <div class="errorMessage">  
-                <%=conErr.getOtherError()%>                       
-            </div>   
-        </form>
-        <%
-                }
-            }
-        %>
+                          <label for="date"><h3>Salary</h3></label><br/>
+                            <input style="width: 100%; height: 2.5em" type="text" placeholder="Your salary here" name="salary" 
+                                   <%
+                                       String salary = (String) request.getAttribute("SALARYSTRING");
+                                       if (salary == null) {
+                                           salary = "";
+                                       }
+                                   %>
+                                   value="<%=salary%>" tabindex="2" required=""><br/>
+                            <%=conErr.getSalaryError()%>   
+                            </div>
+                        
+                        </div>
+                       
+                        <div class="row mb-2">
+                                                        <div class="col-md-12 form-group">
+                            <label for="description"><h3>Notation</h3></label><br/>
+                            <input style="width: 100%; height: 5em" placeholder="Type your Message Here...." name="description"
+                                   value="<%= tempContract == null ? "" : tempContract.getDescription()%>" type="text"tabindex="3"><br/><br/>
+                            <%=conErr.getNotationError()%>   
+                                                        </div>
+                                                    </div>
+                        <div class="box-footer text-center">
+                            <input type="hidden" name="candidateID"  value="<%=candidateDetail.getId()%>">
+                            <input type="reset"class="btn btn-sm btn-outline-success rounded-0" tabindex="4">
+                            <input name="action" type="submit" class="btn btn-sm btn-outline-success rounded-0"  value="Create Contract" tabindex="5">
+                            <div class="errorMessage">  
+                                <%=conErr.getOtherError()%>     
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

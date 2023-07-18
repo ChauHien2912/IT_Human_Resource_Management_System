@@ -28,7 +28,7 @@
             <!-- Sidebar Holder -->
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <h3>HRS</h3>
+                    <h3><i class="bi bi-github"></i>HRS</h3>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -40,9 +40,8 @@
                     </li>                    
                     <!--View Attendance-->
                     <li >
-                        <a href="#viewAttendace" data-bs-toggle="collapse" aria-expanded="false" 
-                           class="includeButton" data-url="attendance/viewAttendance.jsp">
-                            <i class="bi bi-filter-square"></i>  View Attendance</a>
+                        <a href="AttendanceController?action=viewAttendance">
+                            <i class="bi bi-filter-square"></i>  Staff Attendance</a>
                     </li>
                     <!--View Information-->
                     <li >
@@ -50,9 +49,11 @@
                         <ul class="collapse list-unstyled" id="viewSubmenu">
                             <li><a href="#" class="includeButton" data-url="EmployeeController?action=Show Information">User Profile</a></li>
 
-                            <li><a href="#" class="includeButton" data-url="SearchEmployeeController?search=">Staff Information</a></li>
+                            <li><a href="EmployeeController?action=Search Employee&search=&statusActive=All" >Staff Information</a></li>
 
                             <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRoll">View Pay Roll</a></li>
+
+                            <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRollStaff">View PayRoll Staff</a></li>
                         </ul>
                     </li>
                     <!--Overtime-->
@@ -60,8 +61,8 @@
                         <a href="#reportSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-check"></i> OverTime Report</a>
                         <ul class="collapse list-unstyled" id="reportSubmenu">
                             <li><a href="#" class="includeButton" data-url="overtime/create-overtime-report.jsp">Create</a></li>
-                            <li><a href="#" class="includeButton" data-url="overtime/view-personal-overtime-report.jsp">Personal Reports</a></li>
-                            <li><a href="#" class="includeButton" data-url="overtime/view-managed-employee-overtime-report.jsp">Staff Reports</a></li>
+                            <li><a href="OverTimeController?action=ViewPersonOverTimeReport" >Personal Reports</a></li>
+                            <li><a href="OverTimeController?action=ViewManagedEmployeeOverTimeReport">Staff Reports</a></li>
                         </ul>
                     </li>
                     <!--Leavelog-->
@@ -69,8 +70,8 @@
                         <a href="#leaveSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Leave Application</a>
                         <ul class="collapse list-unstyled" id="leaveSubmenu">
                             <li><a href="#" class="includeButton" data-url="leavelog/create-leavelog-apply.jsp">Create</a></li>
-                            <li><a href="#" class="includeButton" data-url="leavelog/view-person-leavelog-report.jsp">Personal LeaveLog</a></li>
-                            <li><a href="#" class="includeButton" data-url="leavelog/view-managed-employee-leavelog-apply.jsp">Staff LeaveLog</a></li>
+                            <li><a href="LeaveLogController?action=ViewPersonLeaveLogApplication" >Personal LeaveLog</a></li>
+                            <li><a href="LeaveLogController?action=ViewManagedEmployeeLeaveLogApplication">Staff LeaveLog</a></li>
                         </ul>
                     </li>
                     <!--Candidate-->
@@ -78,15 +79,13 @@
                         <a href="#candSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-newspaper"></i> Candidate</a>
                         <ul class="collapse list-unstyled" id="candSubmenu">
                             <li><a href="#" class="includeButton" data-url="candidate/createCandidate.jsp">Create</a></li>
-                            <li><a href="#" class="includeButton" data-url="candidate/searchCandidate.jsp">View candidate</a></li>
-                            <li><a href="#" class="includeButton" data-url="contract/searchContract.jsp">Candidate Contract</a></li>
+                            <li><a href="CandidateController?action=Search Candidate&searchFromSideBar=True&search=">View candidate</a></li>
+                            <li><a href="ContractController?action=Search Contract&search=&statusContract=All">Candidate Contract</a></li>
                         </ul>
                     </li>
                 </ul>
                 <!--Sign out-->
-                <ul class="list-unstyled CTAs">
-                    <li><a href="LogoutController?action=Logout"> Logout </a> </li>
-                </ul>
+
             </nav>
 
             <!-- Page Content Holder -->
@@ -99,9 +98,26 @@
                             <i class="bi bi-list"></i>
                             <span></span>
                         </button>
-                        <div class="avatar dropdown">
-                            <img src="Hinh-chan-dung-nam-dep.jpg">
+
+                        <div class="d-flex align-items-center ms-auto">
+                            <div class="btn-group me-3">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear fs-5"></i>
+                                </button>
+                                <ul class="dropdown-menu" >
+                                    <li><a href="#" class="includeButton dropdown-item" data-url="change_password.jsp">Change Password</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item " href="LogoutController?action=Logout">Sign Out</a></li>                        
+                                </ul>
+                            </div>
+
+                            <div class="">
+                                <img src="<%=userLogin.getImage()%>" alt="Image of contract"
+                                     width="60" height="60" alt="" class="rounded-circle">
+
+                            </div>
                         </div>
+
                     </div>
                 </nav>
 
@@ -120,7 +136,7 @@
                                 <p>&copy; 2023 - Responsive Admin Dashboard</p>
                             </div>
                             <div class="col-md-6">
-                                <p class="text-md-end">Designed by Your Name</p>
+                                <p class="text-md-end">Designed by Your Name</p> 
                             </div>
                         </div>
                     </div>

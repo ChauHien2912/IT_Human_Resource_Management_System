@@ -70,8 +70,11 @@ public class CheckInAttendanceController extends HttpServlet {
                         offHour = decimalFormat.parse(decimalFormat.format(offHour)).floatValue();
                         totalHour = decimalFormat.parse(decimalFormat.format(totalHour)).floatValue();
                     }
-
-                    dao.insertOffHour(offHour, totalHour, loginUser.getEmployeeId(), localDate);
+                    float salary =(float)(dao.getSalary(loginUser.getEmployeeId()))/176;
+                    float totalSalary = service.calculateSalaryDate(offHour, salary);
+                    
+                    dao.insertOffHour(offHour, totalHour, totalSalary, loginUser.getEmployeeId(), localDate);
+                    
                     request.setAttribute("MESSAGE", CHECKOUT_SUCCESS);
                 } else {
                     dao.getStartHours(DateTime, loginUser.getEmployeeId());

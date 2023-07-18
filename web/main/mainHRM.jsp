@@ -41,51 +41,49 @@
                     </li>
                     <!--View Attendance-->
                     <li >
-                        <a href="#viewAttendace" data-bs-toggle="collapse" aria-expanded="false" 
-                           class="includeButton" data-url="attendance/viewAttendance.jsp">
-                            <i class="bi bi-filter-square"></i>  View Attendance</a>
+                        <a href="AttendanceController?action=viewAttendance">
+                            <i class="bi bi-filter-square"></i>  HRS Attendance</a>
                     </li>
                     <!--View Information-->
                     <li>
                         <a href="#viewSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-filter-square"></i>  View Information</a>
                         <ul class="collapse list-unstyled" id="viewSubmenu">
                             <li><a href="#" class="includeButton" data-url="EmployeeController?action=Show Information">User Profile</a></li>
-                            <li><a href="#" class="includeButton" data-url="employee/searchEmployee.jsp">Staff Information</a></li>
+                            <li><a href="EmployeeController?action=Search Employee&search=&statusActive=All" >HRS Information</a></li>
+                            <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRollStaff">View PayRoll HRS</a></li>
                         </ul>
                     </li>
                     <!--OverTime-->
                     <li>
                         <a href="#overSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Overtime Report</a>
                         <ul class="collapse list-unstyled" id="overSubmenu">
-                            <li class="includeButton" data-url="overtime/view-managed-employee-overtime-report.jsp"><a href="#">HRS Report</a></li>
+                            <li><a href="OverTimeController?action=ViewManagedEmployeeOverTimeReport">HRS Report</a></li>
                         </ul>
                     </li>
                     <!--Leavelog-->
                     <li>
                         <a href="#leaveSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-calendar-date"></i> Leave Application</a>
                         <ul class="collapse list-unstyled" id="leaveSubmenu">
-                            <li class="includeButton" data-url="leavelog/view-managed-employee-leavelog-apply.jsp"><a href="#">HRS LeaveLog</a></li>
+                            <li><a href="LeaveLogController?action=ViewManagedEmployeeLeaveLogApplication">HRS Leave Log</a></li>
                         </ul>
                     </li>
                     <!--Candidate-->
                     <li>
                         <a href="#candSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-newspaper"></i> Candidate</a>
                         <ul class="collapse list-unstyled" id="candSubmenu">
-                            <li><a href="#" class="includeButton" data-url="contract/searchContract.jsp">Contract Candidate</a></li>
+                            <li><a href="ContractController?action=Search Contract&search=&statusContract=All">Contract Candidate</a></li>
                         </ul>
                     </li>
                     <!--Payroll-->
                     <li>
                         <a href="#payrollSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-newspaper"></i> Payroll</a>
                         <ul class="collapse list-unstyled" id="candSubmenu">
-                            <li><a href="#" class="includeButton" data-url="PayrollController?action=Caculate Payroll">Caculate Payroll</a></li>
+                            <li><a href="PayrollController?action=Caculate Payroll">Caculate Payroll</a></li>
                         </ul>
                     </li>
                 </ul>
 
-                <ul class="list-unstyled CTAs">
-                    <li><a href="LogoutController?action=Logout"> Logout </a> </li>
-                </ul>
+
             </nav>
 
             <!-- Page Content Holder -->
@@ -93,16 +91,29 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
-                        <button type="button" id="sidebarCollapse" class="btn">
+
+                        <button type="button" id="sidebarCollapse" class="btn btn-info">
                             <i class="bi bi-list"></i>
                             <span></span>
                         </button>
-                        <div class="avatar dropdown ms-auto">
-                            <img src="Hinh-chan-dung-nam-dep.jpg" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Signout</a>
+
+                        <div class="d-flex align-items-center ms-auto">
+                            <div class="btn-group me-3">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear fs-5"></i>
+                                </button>
+                               <ul class="dropdown-menu">
+                                    <li><a href="#" class="includeButton dropdown-item" data-url="change_password.jsp">Change Password</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item " href="LogoutController?action=Logout">Sign Out</a></li>                        
+                                </ul>
+                            </div>
+
+                            <div class="">
+                                <img src="image_1.jpg" width="50" height="50" alt="" class="rounded-circle">
                             </div>
                         </div>
+
                     </div>
                 </nav>
 

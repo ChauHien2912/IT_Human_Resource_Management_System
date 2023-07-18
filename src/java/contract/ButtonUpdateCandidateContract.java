@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package userlogin;
+package contract;
 
+import candidate.CandidateDAO;
+import candidate.CandidateDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,40 +18,43 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author flami
  */
-@WebServlet(name = "UserLoginController", urlPatterns = {"/UserLoginController"})
-public class UserLoginController extends HttpServlet {
+@WebServlet(name = "ButtonUpdateCandidateContract", urlPatterns = {"/ButtonUpdateCandidateContract"})
+public class ButtonUpdateCandidateContract extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-
-    private static final String USER_LOGIN = "Login";
-    private static final String USER_LOGIN_CONTROLLER = "LoginController";
-
-    private static final String FORGOTPASS = "ForgotPassword";
-    private static final String FORGOTPASS_CONTROLLER = "ForgotPasswordController";
-    
-    private static final String CHANGEPASS = "Change";
-    private static final String CHANGEPASS_CONTROLLER = "ChangePasswordController";
+    private static final String ERROR = "/contract/updateContract.jsp";
+    private static final String SUCCESS = "/contract/updateContract.jsp";
+    private static final String MAIN = "main/mainHRS.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String url = ERROR;
+        String URL = MAIN;
+
         try {
-            String action = request.getParameter("action");
-            if (USER_LOGIN.equals(action)) {
-                url = USER_LOGIN_CONTROLLER;
-            } else if (USER_LOGIN.equals(action)) {
-                url = USER_LOGIN_CONTROLLER;
-            } else if (FORGOTPASS.equals(action)) {
-                url = FORGOTPASS_CONTROLLER;
-            }else if (CHANGEPASS.equals(action)) {
-                url = CHANGEPASS_CONTROLLER;
+            String candidateID = request.getParameter("candidateID");
+            String coontractID = request.getParameter("tempContractID");
+
+            CandidateDAO dao = new CandidateDAO();
+            //get a candidate from database
+            CandidateDTO candidate = dao.getACandidate(candidateID);
+            if (candidate != null) {
+                //get temporary contract of this candidate
+                 ContractDAO tempDAO = new ContractDAO();
+                TemporaryContractDTO tempContract = tempDAO.getTemporaryContractByCandidateID(candidateID);
+                if (tempContract != null) {
+                    url = SUCCESS;
+                    //return candidate and temporary contract to show
+                    request.setAttribute("CANDIDATE", candidate);
+                    request.setAttribute("TEMPORARY_CONTRACT", tempContract);
+                }
             }
         } catch (Exception e) {
-            log("Error at MainController" + e.toString());
+            e.printStackTrace();
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            request.setAttribute("URL", url);
+            request.getRequestDispatcher(URL).forward(request, response);
         }
     }
 

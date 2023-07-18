@@ -1,0 +1,96 @@
+<%-- 
+    Document   : change_password.jsp
+    Created on : Jul 18, 2023, 4:20:17 PM
+    Author     : PC-CAOKIENQUOC
+--%>
+
+<%@page import="userlogin.UserError"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Change Password Page</title>
+        <link
+            href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'
+            rel='stylesheet'>
+        <link
+            href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'
+            rel='stylesheet'>
+        <script type='text/javascript'
+        src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <style>
+            .placeicon {
+                font-family: fontawesome
+            }
+
+            .custom-control-label::before {
+                border: #dee2e6
+            }
+            .body{
+                background-color: #ffffff;
+            }
+        </style>
+    </head>
+    <body oncontextmenu='return false' class='snippet-body bg-info'>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+        <div>
+            <!-- Container containing all contents -->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6 mt-5">
+                        <!-- White Container -->
+                        <div class="container bg-white rounded mt-2 mb-2 px-0">
+                            <!-- Main Heading -->
+                            <div class="row justify-content-center align-items-center pt-3">
+                                <h1 style="text-align: center">
+                                    <strong>Change Password</strong>
+                                </h1>
+                            </div>
+                            <div class="pt-3 pb-3">
+                                <form class="form-horizontal" action="UserLoginController" method="POST">
+
+                                    <div class="form-group row justify-content-center px-3">
+                                        <div class="col-9 px-0">
+                                            <input type="password" name="oldPassword"  required="" placeholder="&#xf084; &nbsp; Old Password"
+                                                   class="form-control border-info placeicon">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row justify-content-center px-3">
+                                        <div class="col-9 px-0">
+                                            <input type="password" name="newPassword" required=""
+                                                   placeholder="&#xf084; &nbsp;  New Password"
+                                                   class="form-control border-info placeicon">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row justify-content-center px-3">
+                                        <div class="col-9 px-0">
+                                            <input type="password" name="newConfirm" required=""
+                                                   placeholder="&#xf084; &nbsp; Confirm New Password"
+                                                   class="form-control border-info placeicon">
+                                        </div>
+                                    </div>
+                                    <%
+                                        UserError errMess = (UserError) request.getAttribute("USER_ERROR");
+                                    %>
+                                    <h5 style="text-align: center"><%=errMess == null ? "" : errMess.getPasswordError()%></h5>
+                                    <div class="form-group row justify-content-center">
+                                        <div class="col-3 px-3 mt-3">
+                                            <input type="submit" name="action" value="Change"
+                                                   class="btn btn-block btn-info">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type='text/javascript'
+        src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
+
+    </body>
+</html>

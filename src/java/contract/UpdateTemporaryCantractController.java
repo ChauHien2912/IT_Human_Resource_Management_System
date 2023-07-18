@@ -42,7 +42,7 @@ public class UpdateTemporaryCantractController extends HttpServlet {
     private final static String ERROR = "/contract/updateContract.jsp";
     private final static String SUCCESS = "/contract/searchContract.jsp";
     private final static String SAVE_DIR = "imageCandidate";
-    private final static String URL = "mainHRS.jsp";
+    private final static String URL = "main/mainHRS.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

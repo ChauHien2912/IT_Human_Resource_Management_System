@@ -56,7 +56,13 @@
 											class="form-control border-info placeicon">
 									</div>
 								</div>
-							
+							        <%
+                                                                    String errMess = (String) request.getAttribute("MESSAGE");
+                                                                    if(errMess==null){
+                                                                        errMess="";
+                                                                    }
+                                                                %>
+                                                                <h4 style="text-align: center"><%=errMess %></h4>
 								<!-- Log in Button -->
 								<div class="form-group row justify-content-center">
 									<div class="col-3 px-3 mt-3">
@@ -66,6 +72,7 @@
 								</div>
 							</form>
 						</div>
+                                                
 						<!-- Alternative Login -->
 						<div class="mx-0 px-0 bg-light">
 							

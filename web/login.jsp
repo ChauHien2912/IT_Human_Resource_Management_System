@@ -27,10 +27,6 @@
     </style>
 
     <body>
-
-
-
-
         <div class="container">
             <div class="img">
                 <img src="imageLogin/1.svg">		</div>
@@ -55,10 +51,16 @@
                             <input placeholder="Password" type="password" class="input" name="password">
                         </div>
                     </div>
-                    <a href="login/run.jsp">Forgot Password?</a>
+                    <a href="forgotPassword.jsp">Forgot Password?</a>
                     <input type="submit" class="btn" name="action" value="Login">
+                    <div>
+                    <%
+                        String error = (String) request.getAttribute("ERROR_MESSAGE");
+                        if(error == null) error = "";
+                    %>
+                    <%=error %>
+                    </div>
                 </form>
-
             </div>
         </div>
         <script type="text/javascript" src="login/login.js"></script>

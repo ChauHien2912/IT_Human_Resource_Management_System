@@ -16,6 +16,11 @@
     <body>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
               integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <section class="py-1">
+            <div class="container">
+                <div>
+                    <h1 class="fw-bold">Staff Report</h1>
+                </div>
         <%
             String search = (String) request.getParameter("search");
             if (search == null) {
@@ -23,7 +28,7 @@
             }
             String isActive = (String) request.getAttribute("STATUS_CONTRACT");
         %>
-        
+
         <div class="row">
             <div class="col-lg-6">
                 <form action="EmployeeController">
@@ -60,7 +65,17 @@
             if (listEmployee != null) {
                 if (!listEmployee.isEmpty()) {
         %>
-        <table border="1" class="table">
+         <div class="row">
+
+                    <div class="col-lg-12">
+
+
+                        <div class="card p-4 rounded-0 shadow">
+                            <div class="card-body">
+
+                                <div clas="table-responsive">
+
+                                    <table class="table">   
             <thead>
                 <tr>
                     <th>No</th>
@@ -140,5 +155,15 @@
         %>
 
     </tbody>
+     </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
 </body>
 </html>

@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="CSS/profile.css"/>
     </head>
     <body>
-        
+
         <%
             CandidateDTO candidateDetail = (CandidateDTO) request.getAttribute("CANDIDATE");
             TemporaryContractDTO tempContract = (TemporaryContractDTO) request.getAttribute("TEMPORARY_CONTRACT");
@@ -61,11 +61,11 @@
                                     <form action="ContractController">
                                         <input type="hidden" name="candidateID" value="<%= candidateDetail.getId()%>"/>
                                         <input type="hidden" name="contractID" value="<%= tempContract.getContractID()%>"/>
-                                        
-                                        <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" name="action" value="Print Contract"/>
-                                        
+
+                                        <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" target="_blank"  name="action" value="Print Contract"/>
+
                                         <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" name="action" value="Approve Contract"/>
-                                        
+
                                         <input class="btn btn-sm btn-outline-danger rounded-0" type="submit" name="action" value="Reject Contract"/>
                                         <br><br>
                                         <div><input placeholder="Description.." type="text" name="description"></div>            
@@ -73,8 +73,8 @@
                                     <%
                                     } else if (roleName.equals("HRS")) {
                                     %>
-                                    
-                                    <form action="ContractController" >
+
+                                    <form action="ContractController" target="_blank">
                                         <input type="hidden" name="candidateID" value="<%= candidateDetail.getId()%>"/>
                                         <input type="hidden" name="contractID" value="<%= tempContract.getContractID()%>"/>
                                         <input type="submit" class="btn btn-sm btn-outline-danger rounded-0" name="action" value="Print Contract"><br>
@@ -88,8 +88,8 @@
                                     <form action="ContractController" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="candidateID" value="<%= candidateDetail.getId()%>"/>
                                         <input type="hidden" name="contractID" value="<%= tempContract.getContractID()%>"/>
-                                        <input type="file" name="fileContract" value="Browse" multiple>
-                                        <input type="submit" class="btn btn-sm btn-outline-danger rounded-0" name="action" value="Apply Contract"><br>
+                                        <input type="file" name="fileContract" value="Browse" class="btn btn-sm btn-outline-danger rounded-0" multiple>
+                                        <input type="submit" class="btn btn-sm btn-outline-danger rounded-0" name="action" value="Apply Contract" ><br>
                                         <!--<input type="submit" name="action" value="Delete Contract"/><br>-->       
                                     </form> 
                                     <%
@@ -100,11 +100,9 @@
                                         if (tempContract.getStatus().equals("REJECTED")) {
                                     %>
                                     <br>
-                                    <form action="updateContract.jsp">
-                                        <%
-                                            session.setAttribute("CANDIDATE", candidateDetail);
-                                            session.setAttribute("TEMPORARY_CONTRACT", tempContract);
-                                        %>
+                                    <form action="ButtonUpdateCandidateContract">
+                                        <input type="hidden" name="candidateID" value="<%=candidateDetail.getId() %>">
+                                        <input type="hidden" name="tempContractID" value="<%=tempContract.getContractID() %>">
                                         <input type="submit" class="btn btn-sm btn-outline-danger rounded-0" name="action" value="Update Contract"><br>          
                                     </form>
                                     <%
@@ -213,7 +211,8 @@
                                             <div class="col-6 mb-3">
                                                 <h6>Description</h6>
                                                 <%
-                                                    if (tempContract.getDescription() == null) {
+                                                    if (tempContract.getDescription() == null
+                                                            || tempContract.getDescription().trim().isEmpty()) {
                                                         tempContract.setDescription("None");
                                                     }
                                                 %>

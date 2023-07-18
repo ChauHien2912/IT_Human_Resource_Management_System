@@ -24,8 +24,7 @@
         <section class="py-1">
             <div class="container">
                 <div>
-                    <h1 class="fw-bold">Table</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores, perspiciatis.</p>
+                    <h1 class="fw-bold">Candidate Information</h1>
                 </div>
                 <%
                     String search = (String) request.getParameter("search");
@@ -101,7 +100,7 @@
                                                 <input type="hidden" name="candidateID" value="<%= candidate.getId()%>"/>
                                             </td>
                                         </form>
-                                            <td><a href="contract/createContract.jsp" class="btn btn-sm btn-outline-danger rounded-0"> Create</a></td>
+                                        <td><a href="ButtonCreateContractController?candidateID=<%=candidate.getId()%>&search=<%=search%>" class="btn btn-sm btn-outline-danger rounded-0"> Create</a></td>
                                         </tr>
                                         <%
                                             }
@@ -112,11 +111,15 @@
                                             }
                                         }
                                     %>
-
-
                                 </div>
-
                             </div>
+                                    <%
+                                        String errorMessage = (String) request.getAttribute("STATUS_CONTRACT");
+                                        if(errorMessage==null){
+                                        errorMessage = "";
+                                        }
+                                    %>
+                                    <h4><%=errorMessage %></h4>
                         </div>
 
                     </div>
@@ -124,6 +127,9 @@
                 </div>
             </div>
         </section>
+        <%
+            CandidateDTO candidateDetail = (CandidateDTO) request.getAttribute("CANDIDATE");
+        %>
     </body>
 
 </html>

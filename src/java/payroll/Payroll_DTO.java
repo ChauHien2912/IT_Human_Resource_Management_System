@@ -16,6 +16,7 @@ public class Payroll_DTO {
     private String fullName;
     private String employeeID;
     private Date paidDate; 
+    private int month;
     private float officeHours;
     private float otHours;
     private float ot_income;
@@ -31,11 +32,12 @@ public class Payroll_DTO {
     public Payroll_DTO() {
     }
 
-    public Payroll_DTO(int payID, String fullName, String employeeID, Date paidDate, float officeHours, float otHours, float ot_income, float stand_income, float BHXH, float BHTN, float TNCN, float allowance, float total, float salary, float totalHours) {
+    public Payroll_DTO(int payID, String fullName, String employeeID, Date paidDate, int month, float officeHours, float otHours, float ot_income, float stand_income, float BHXH, float BHTN, float TNCN, float allowance, float total, float salary, float totalHours) {
         this.payID = payID;
         this.fullName = fullName;
         this.employeeID = employeeID;
         this.paidDate = paidDate;
+        this.month = month;
         this.officeHours = officeHours;
         this.otHours = otHours;
         this.ot_income = ot_income;
@@ -79,6 +81,14 @@ public class Payroll_DTO {
 
     public void setPaidDate(Date paidDate) {
         this.paidDate = paidDate;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     public float getOfficeHours() {
@@ -168,7 +178,4 @@ public class Payroll_DTO {
     public void setTotalHours(float totalHours) {
         this.totalHours = totalHours;
     }
-
-    
-    
 }

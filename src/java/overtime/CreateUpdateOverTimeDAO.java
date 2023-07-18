@@ -133,7 +133,7 @@ public class CreateUpdateOverTimeDAO {
             if (dateName != null) {
                 report = new OverTimeReport_DTO(dateOT, DATETYPE_WEEKEND, (float) 2, otHours, dateName, reason, employeeId);
             } else {
-                report = new OverTimeReport_DTO(dateOT, DATETYPE_NORMAL, (float) 1.5, otHours, "", reason, employeeId);
+                report = new OverTimeReport_DTO(dateOT, DATETYPE_NORMAL, (float) 1.5, otHours, "Normal", reason, employeeId);
             }
         }
         return report;

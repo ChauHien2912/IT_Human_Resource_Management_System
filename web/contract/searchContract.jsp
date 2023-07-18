@@ -28,8 +28,8 @@
         <section class="py-1">
             <div class="container">
                 <div>
-                    <h1 class="fw-bold">Table</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores, perspiciatis.</p>
+                    <h1 class="fw-bold">Temporary Contract Of Candidate</h1>
+                    <br><br>
                 </div>
                 <%
                     String search = (String) request.getParameter("search");
@@ -67,9 +67,9 @@
                 <!--Print List-->    
                 <%
                     List<CandidateContractDTO> listCandidateContract = (List<CandidateContractDTO>) request.getAttribute("LIST_CANDIDATE_CONTRACT");
-                    if ((listCandidateContract == null || listCandidateContract.isEmpty()) && !search.equals("")) {
+                    if (listCandidateContract == null || listCandidateContract.isEmpty()) {
                 %>
-                <h2>No record!</h2>
+                <h4>Do not have any temporary contract for candidate!</h4>
                 <%
                     }
                     if (listCandidateContract != null) {

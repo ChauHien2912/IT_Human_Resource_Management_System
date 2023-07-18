@@ -25,7 +25,7 @@ import userlogin.User_Login_DTO;
 public class EditOverTimeButtonController extends HttpServlet {
 
     public static String ERROR = "error.jsp";
-    public static String SUCCESS = "/overttime/Edit-overtime-report.jsp";
+    public static String SUCCESS = "/overtime/Edit-overtime-report.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

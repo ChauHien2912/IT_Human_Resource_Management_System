@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet("/ForgotPasswordController")
 public class ForgotPasswordController extends HttpServlet {
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userID = null;
         userID = request.getParameter("userID");
@@ -84,13 +84,17 @@ public class ForgotPasswordController extends HttpServlet {
                 message.setFrom(new InternetAddress(email));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                 message.setSubject("IT Human Management System");
-                message.setText("your OTP is: " + otpvalue);
+                message.setText("Hi,\n"
+                        + "Please ues the following One Time Password (OTP) to "
+                        + "change your password in IT Human Resource Management System: "
+                        + otpvalue + ". Do not share this OTP with anyone.\n\n"
+                        + "Thank you!");
                 Transport.send(message);
                 System.out.println("message sent successfully");
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
-            dispatcher = request.getRequestDispatcher("login/EnterOtp.jsp");
+            dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
             request.setAttribute("message", "OTP is sent to your email id");
             mySession.setAttribute("otp", otpvalue);
             mySession.setAttribute("email", email);
@@ -98,7 +102,7 @@ public class ForgotPasswordController extends HttpServlet {
 
         } else {
             request.setAttribute("ERROR_MASSAGE", "Incorrect User!!");
-            request.getRequestDispatcher("login/forgotPassword.jsp").forward(request, response);
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         }
     }
 

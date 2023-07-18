@@ -1,3 +1,4 @@
+<%@page import="userlogin.User_Login_DTO"%>
 <!doctype html>
 <html lang="en">
 
@@ -11,23 +12,33 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
               integrity="sha512-... Integrity code here ..." crossorigin="anonymous" />
         <style>
-             .btn-checkin {
-    background-color: #00a65a;
-    border-color: #00a65a;
-  }
-    .btn-checkout {
-    background-color: #ffc107;
-    border-color: #ffc107;
-  }
-  
-  .alert {
-    padding: 10px;
-    border-radius: 5px;
-  }
-</style>
+            .btn-checkin {
+                background-color: #00a65a;
+                border-color: #00a65a;
+            }
+            .btn-checkout {
+                background-color: #ffc107;
+                border-color: #ffc107;
+            }
+
+            .alert {
+                padding: 10px;
+                border-radius: 5px;
+            }
+        </style>
     </head>
 
     <body>
+        <%
+            int count;
+            if (request.getAttribute("TOTAL_LEAVE_LOG") == null) {
+                count = 0;
+            } else {
+                count = (int) request.getAttribute("TOTAL_LEAVE_LOG");
+            }
+                   
+            User_Login_DTO userLogin = (User_Login_DTO) session.getAttribute("USER_LOGIN");
+        %>
         <main>
             <section class="mycontent">
                 <div class="container-fluid">
@@ -75,8 +86,8 @@
                                 <span class="info-box-icon bg-danger elevation-1"><i class="far fa-calendar-alt"></i></span>
                                 <div class="info-box-content">
                                     <h5><a href="#" class="info-box-number name-category">Day off</a></h5>
-                                    <span class="info-box-text">Used: 0 days (0 hours)</span>
-                                    <span class="info-box-text">Remaining: 13 days (104 hours)</span>
+                                    <span class="info-box-text">Used: <%=count%> days </span>
+                                    <span class="info-box-text">Remaining: <%=12 - count%> days </span>
                                 </div>
                             </div>
                         </div>
@@ -99,32 +110,20 @@
                                 </div> 
                                 <div class="card card-success card-outline info-in-month">
                                     <div class="card-header">
-                                        <h4 class="card-title text-center">Information for July 2023</h4>
+                                        <h4 class="card-title text-center">Information</h4>
                                         <input type="hidden" name="is_locked" value="0">
                                     </div>
                                     <div>
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <td>Working hours</td>
-                                                    <td class="text-right">188</td>
+                                                    <td>Full Name</td>
+                                                    <td class="text-right"><%=userLogin.getEmployeeName() %></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Attendance hours</td>
-                                                    <td class="text-right">0</td>
+                                                    <td>Employee ID</td>
+                                                    <td class="text-right"><%=userLogin.getEmployeeId() %></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Holiday hours</td>
-                                                    <td class="text-right">0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Leave hours</td>
-                                                    <td class="text-right">0</td>
-                                                </tr>
-
-
-
-
                                             </tbody>
                                         </table>
                                     </div>

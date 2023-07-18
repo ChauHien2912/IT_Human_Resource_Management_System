@@ -4,67 +4,79 @@
  */
 package contract;
 
+import candidate.CandidateDAO;
 import candidate.CandidateDTO;
+import static contract.CreateContractController.TIEN_COM_TRUA;
+import static contract.CreateContractController.TIEN_DIEN_THOAI;
+import static contract.CreateContractController.TIEN_NHA_O;
+import static contract.CreateContractController.TIEN_XANG_XE;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import userlogin.User_Login_DTO;
 
 /**
  *
- * @author flami This class use to show contract in order to print
+ * @author flami
  */
-@WebServlet(name = "PrintContractController", urlPatterns = {"/PrintContractController"})
-public class PrintContractController extends HttpServlet {
+@WebServlet(name = "ButtonCreateContractController", urlPatterns = {"/ButtonCreateContractController"})
+public class ButtonCreateContractController extends HttpServlet {
 
-    private final static String ERROR = "/contract/showCandidateContractDetail.jsp";
-    private final static String SUCCESS = "/contract/printContract.jsp";
+    private static final String ERROR = "SearchCandidateController";
+    private static final String SUCCESS = "/contract/createContract.jsp";
+    private static final String MAIN = "main/mainHRS.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        boolean check = true;
+        request.setCharacterEncoding("UTF-8");
         String url = ERROR;
         String URL = ERROR;
+
         try {
             String candidateID = request.getParameter("candidateID");
-            String contractID = request.getParameter("contractID");
-
-            ContractDAO dao = new ContractDAO();
-            CandidateDTO candidate = dao.getACandidate(candidateID);//get a candidate from database
-            //get a temporary contract from database
-            TemporaryContractDTO tempContract = dao.getTemporaryContract(contractID);
-
-            if (candidate == null || tempContract == null) {
-                check = false;
-            }
-            if (check) {
-                //return temporary contract and candidate
+            String search = request.getParameter("search");
+            CandidateDAO dao = new CandidateDAO();
+            //get a candidate from database
+            CandidateDTO candidate = dao.getACandidate(candidateID);
+            if (candidate != null) {
+                //get temporary contract of this candidate
+                ContractDAO tempDAO = new ContractDAO();
+                TemporaryContractDTO tempContract = tempDAO.getTemporaryContract(candidateID);
+                if (tempContract == null || tempContract.getStatus() == null) {
+                    URL = MAIN;
+                    url = SUCCESS;
+                    request.setAttribute("URL", url);
+                } else {
+                    String status = tempContract.getStatus();
+                    if (status != null) {
+                        if (status.equals("APPROVED")) {
+                            request.setAttribute("STATUS_CONTRACT",
+                                    "Contract of Candidate is approved by HRM!");
+                        }
+                        if (status.equals("REJECT")) {
+                            request.setAttribute("STATUS_CONTRACT",
+                                    "Contract of Candidate is rejected by HRM!");
+                        }
+                        if (status.equals("PROCESSING")) {
+                            request.setAttribute("STATUS_CONTRACT",
+                                    "Contract of Candidate is waiting for HRM!");
+                        }
+                    }
+                }
+                //return candidate and temporary contract to show
                 request.setAttribute("CANDIDATE", candidate);
                 request.setAttribute("TEMPORARY_CONTRACT", tempContract);
-                url = SUCCESS;
-            }
-            //reload page
-            HttpSession session = request.getSession();
-            User_Login_DTO userLogin = (User_Login_DTO) session.getAttribute("USER_LOGIN");
-            if (userLogin.getRoleName().equalsIgnoreCase("HRS")) {
-                URL = "main/mainHRS.jsp";
-            } else if (userLogin.getRoleName().equalsIgnoreCase("HRM")) {
-                URL = "main/mainHRM.jsp";
-            }else{
-                URL="main/mainStaff.jsp";
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(URL).forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

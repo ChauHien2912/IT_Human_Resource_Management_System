@@ -30,7 +30,7 @@ public class ApplyTemporaryContractController extends HttpServlet {
 
     private final static String ERROR = "/contract/showCandidateContractDetail.jsp";
     private final static String SUCCESS = "SearchContractController";
-    private final static String SAVE_DIR = "imageContract";
+    private final static String SAVE_DIR = "personalImage";
     private final static String EMPLOYEE_CONTRACT_ID_FORMAT = "EC1111";
     private final static String STAFF_ID_FORMAT = "SS1111";
 

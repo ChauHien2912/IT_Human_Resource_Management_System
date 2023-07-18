@@ -25,13 +25,14 @@ public class SearchCandidateController extends HttpServlet {
 
     private final static String ERROR = "/candidate/searchCandidate.jsp";
     private final static String SUCCESS = "/candidate/searchCandidate.jsp";
-    private final static String URL = "main/mainHRS.jsp";
+    private final static String MAIN = "main/mainHRS.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String url = ERROR;
+        String URL = MAIN;
         try {
             String search = ((String) request.getParameter("search")).trim();
             if (search == null) {
@@ -42,7 +43,6 @@ public class SearchCandidateController extends HttpServlet {
             HttpSession session = request.getSession();
             User_Login_DTO userLogin = (User_Login_DTO) session.getAttribute("USER_LOGIN");
             creatorID = userLogin.getEmployeeId();
-
             CandidateDAO candidateDAO = new CandidateDAO();
             //get list CandidateDTO from database
             List<CandidateDTO> listCandidate = candidateDAO.getListCandidate(search, creatorID);
@@ -53,7 +53,7 @@ public class SearchCandidateController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            request.setAttribute("URL",url);
+            request.setAttribute("URL", url);
             request.getRequestDispatcher(URL).forward(request, response);
         }
 

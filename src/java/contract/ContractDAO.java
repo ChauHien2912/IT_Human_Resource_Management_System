@@ -407,6 +407,57 @@ public class ContractDAO {
         }
         return tempContract;
     }
+    
+       public TemporaryContractDTO getTemporaryContractByCandidateID(String candidateID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TemporaryContractDTO tempContract = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT candidateID, startDate, salary, allowance, contractID,"
+                        + " description, creatorID, approverID, status, reason FROM TemporaryContract "
+                        + "WHERE candidateID = ?";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, candidateID);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    Date date = rs.getDate("startDate");
+                    // chuyển đổi kiểu dữ liệu java.util.Date thành LocalDate
+                    LocalDate startDate = date.toLocalDate();
+                    float salary = rs.getFloat("salary");
+                    float allowance = rs.getFloat("allowance");
+                    String description = rs.getString("description");
+                    String creatorID = rs.getString("creatorID");
+                    String approverID = rs.getString("approverID");
+                    String contractID = rs.getString("contractID");
+                    String statusCon = rs.getString("status");
+                    String reason = rs.getString("reason");
+
+                    tempContract = new TemporaryContractDTO(
+                            contractID, startDate, salary, allowance,
+                            approverID, creatorID, description,
+                            candidateID, statusCon, reason);
+                }
+            }
+        } catch (IllegalArgumentException i) {
+            i.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+        }
+        return tempContract;
+    }
 
     public String getNewStaffID(String CONTRACT_ID_FORMAT) throws SQLException {
         Connection conn = null;

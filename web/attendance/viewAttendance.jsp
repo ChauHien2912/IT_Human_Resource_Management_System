@@ -14,64 +14,94 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="AttendanceController">
-            <input type="date" name="dateAttendance">
-            <input type="text" name="employeeId">
-            <input type="hidden" name="action" value="viewAttendance">
-            <input type="submit" value="Search">
-        </form>
+        <section class="py-1">
+            <div class="container">
+                <div>
+                    <h1 class="fw-bold">View Attendance</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form action="AttendanceController">
+                                <input type="text" name="employeeId"  placeholder="ID">
+                                <input type="date" name="dateAttendance">
 
-        <%
-            List<ViewAttendance_DTO> listReport = null;
-            listReport = (List<ViewAttendance_DTO>) request.getAttribute("LIST_ATTENDANCE");
-            if (listReport != null) {
-        %>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>EmployeeID</th>
-                    <th>Start Hour</th>
-                    <th>End Hour</th>
-                    <th>Office Hours</th>
-                    <th>total Hours</th>
-                </tr>
-            </thead>
-            <tbody>
+                                <input type="hidden" name="action" value="viewAttendance">
+                                <input type="submit" class="btn btn-success" value="Search">
+                            
+
+                        </form>
+                    </div>
+                </div>
+                <br>
                 <%
-                    int count = 1;
-                    String status = null;
-                    for (ViewAttendance_DTO report : listReport) {
+                    List<ViewAttendance_DTO> listReport = null;
+                    listReport = (List<ViewAttendance_DTO>) request.getAttribute("LIST_ATTENDANCE");
+                    if (listReport != null) {
                 %>
+                <div class="row">
 
-            <form action="LeaveLogController">
-                <tr>
-                    <td><%=count%></td>
-                    <td><%=report.getEmployeeId()%></td>
-                    <td><%=report.getStartHour()%></td>
-                    <td><%=report.getEndHour()%></td>
-                    <td><%=report.getOfficeHours()%></td>
-                    <td><%=report.getTotalHours()%></td>
-                </tr>
-            </form>
-            <%
-                    count += 1;
-                }
-            %>
+                    <div class="col-lg-12">
 
-        </tbody>
-    </table>
-    <%
-        }
-    %>
-    <%
-        String message = (String) request.getAttribute("MESSAGE");
-        if (message != null) {
-    %>
-    <%=message%>
-    <%
-        }
-    %>
 
-</body>
+                        <div class="card p-4 rounded-0 shadow">
+                            <div class="card-body">
+
+                                <div clas="table-responsive">
+
+                                    <table class="table">                     <thead>
+                                            <tr>
+                                                <th>NO</th>
+                                                <th>EmployeeID</th>
+                                                <th>Start Hour</th>
+                                                <th>End Hour</th>
+                                                <th>Office Hours</th>
+                                                <th>total Hours</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                int count = 1;
+                                                String status = null;
+                                                for (ViewAttendance_DTO report : listReport) {
+                                            %>
+
+                                        <form action="LeaveLogController">
+                                            <tr>
+                                                <td><%=count%></td>
+                                                <td><%=report.getEmployeeId()%></td>
+                                                <td><%=report.getStartHour()%></td>
+                                                <td><%=report.getEndHour()%></td>
+                                                <td><%=report.getOfficeHours()%></td>
+                                                <td><%=report.getTotalHours()%></td>
+                                            </tr>
+                                        </form>
+                                        <%
+                                                count += 1;
+                                            }
+                                        %>
+                                        <%
+                                            }
+                                        %>
+                                        <%
+                                            String message = (String) request.getAttribute("MESSAGE");
+                                            if (message != null) {
+                                        %>
+                                        <%=message%>
+                                        <%
+                                            }
+                                        %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </body>
 </html>

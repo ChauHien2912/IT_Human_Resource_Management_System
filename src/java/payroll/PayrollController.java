@@ -21,10 +21,13 @@ public class PayrollController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String PAYROLL = "Caculate Payroll";
-    private static final String PAYROLL_CONTROLLER = "CaculatePayRollController";
+    private static final String PAYROLL_CONTROLLER = "CaculatePayrollController";
 
     private static final String VIEWPAYROLL = "ViewPayRoll";
     private static final String VIEWPAYROLL_CONTROLLER = "ViewPayrollController";
+    
+    private static final String VIEWPAYROLLSTAFF = "ViewPayRollStaff";
+    private static final String VIEWPAYROLLSTAFF_CONTROLLER = "ViewPayrollStaffController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,6 +39,8 @@ public class PayrollController extends HttpServlet {
                 url = PAYROLL_CONTROLLER;
             } else if (VIEWPAYROLL.equals(action)) {
                 url = VIEWPAYROLL_CONTROLLER;
+            }else if (VIEWPAYROLLSTAFF.equals(action)) {
+                url = VIEWPAYROLLSTAFF_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());

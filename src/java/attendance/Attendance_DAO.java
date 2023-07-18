@@ -31,10 +31,10 @@ public class Attendance_DAO {
 
     private static final String GET_OFFHOUR = "SELECT FORMAT(startHour, 'HH:mm') AS startHourTime, FORMAT(endHour, 'HH:mm') AS endHourTime FROM Attendance WHERE employeeID = ? AND CONVERT(DATE, startHour) = ?";
 
-    private static final String INSERT = "UPDATE Attendance SET officeHours = ? , totalHours = ? WHERE employeeID = ? AND CONVERT(DATE, startHour) = ? ";
-    
+    private static final String INSERT = "UPDATE Attendance SET officeHours = ? , total = ?, totalSalary=? WHERE employeeID = ? AND CONVERT(DATE, startHour) = ? ";
+
     private static String LIST_HOLIDAYS = "SELECT note FROM Holiday WHERE date = ?";
-    
+
     public boolean checkAttendanceExists(String employeeID, LocalDate date) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -149,9 +149,8 @@ public class Attendance_DAO {
                     // Chuyển đổi từ LocalTime sang Float (nếu cần)
                     startHour = startTime.getHour() + (startTime.getMinute() / 60.0f);
                     endHour = endTime.getHour() + (endTime.getMinute() / 60.0f);
-
                 }
-                attendance = new Attendance_DTO(0, startHour, endHour, 0, 0, employeeID);
+                attendance = new Attendance_DTO(0, startHour, endHour, 0, 0, employeeID, 0);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -170,7 +169,7 @@ public class Attendance_DAO {
         return attendance;
     }
 
-    public void insertOffHour(float offHour, float totalHour, String employeeId, LocalDate b) throws SQLException {
+    public void insertOffHour(float offHour, float totalHour, float totalSalary, String employeeId, LocalDate b) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -181,8 +180,9 @@ public class Attendance_DAO {
                 ptm = conn.prepareStatement(INSERT);
                 ptm.setFloat(1, offHour);
                 ptm.setFloat(2, totalHour);
-                ptm.setString(3, employeeId);
-                ptm.setDate(4, java.sql.Date.valueOf(b));
+                ptm.setFloat(3, totalSalary);
+                ptm.setString(4, employeeId);
+                ptm.setDate(5, java.sql.Date.valueOf(b));
                 result = ptm.executeUpdate() > 0 ? true : false;
 
             }
@@ -198,7 +198,7 @@ public class Attendance_DAO {
         }
 
     }
-    
+
     public String holidayType(Date date) {
         String holidayName = null;
         Connection conn = null;
@@ -215,5 +215,29 @@ public class Attendance_DAO {
         } catch (Exception e) {
         }
         return holidayName;
+    }
+    private static String GETSALARY = "SELECT DISTINCT e.employeeID, salary FROM EmployeeContract AS e join Attendance AS a ON e.employeeID = a.employeeID "
+            + " WHERE a.employeeID = ? ";
+
+    public float getSalary(String employeeID) {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        float Salary = 0.0f;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GETSALARY);
+                ptm.setString(1, employeeID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    Salary = rs.getFloat("salary");
+                }
+
+            }
+        } catch (Exception e) {
+
+        }
+        return Salary;
     }
 }

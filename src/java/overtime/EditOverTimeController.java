@@ -71,8 +71,8 @@ public class EditOverTimeController extends HttpServlet {
             }
             url = SUCCESS;
             session.removeAttribute("EDIT_OVERTIME_REPORT");
-                        //reload page
-            
+            //reload page
+
             if (userLogin.getRoleName().equalsIgnoreCase("HRS")) {
                 URL = "main/mainHRS.jsp";
             } else if (userLogin.getRoleName().equalsIgnoreCase("Staff")) {
@@ -81,7 +81,8 @@ public class EditOverTimeController extends HttpServlet {
         } catch (Exception e) {
             log("Error at EditOverTimeController" + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            request.setAttribute("URL", url);
+            request.getRequestDispatcher(URL).forward(request, response);
         }
     }
 
