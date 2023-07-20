@@ -37,7 +37,8 @@ public class PayRoll_DAO {
             + "ot_income, standard_income, "
             + "BHXH, BHTN, TNCN, allowance, total) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    private static final String SEARCH_LISTPAYROLL = " SELECT payId, fullName, p.employeeID, paidDate, officeHours, otHours, ot_income, standard_income, BHXH, BHTN, TNCN, allowance, total "
+    private static final String SEARCH_LISTPAYROLL = " SELECT payId, fullName, p.employeeID,"
+            + "month, paidDate, officeHours, otHours, ot_income, standard_income, BHXH, BHTN, TNCN, allowance, total "
             + " FROM PayRoll p FULL OUTER JOIN UserLogin u ON u.employeeId = p.employeeID "
             + " where u.employeeId like ? ";
     private static final String GETIDPAYROLL = "SELECT distinct employeeId from Payroll WHERE MONTH(paidDate) = ? AND YEAR(paidDate) = ? ";
@@ -48,7 +49,7 @@ public class PayRoll_DAO {
 
     private static final String GETENDHOUR = "SELECT endHour, employeeID from Attendance where employeeID like ? AND MONTH(endHour) = ? AND YEAR(endHour) = ? ";
     
-    private static final String SEARCH_LISTPAYROLLSTAFF = "SELECT p.payId, p.fullName, p.employeeId, p.paidDate, p.officeHours, "
+    private static final String SEARCH_LISTPAYROLLSTAFF = "SELECT p.payId, p.fullName, p.employeeId, p.paidDate, p.officeHours, p.month, "
             + "p.otHours, p.ot_income, p.standard_income, p.BHXH, p.BHTN, p.TNCN, p.allowance, p.total "
             + "FROM PayRoll p FULL OUTER JOIN EmployeeInformation e ON p.employeeId = e.employeeID "
             + "Where manageBy = ?";

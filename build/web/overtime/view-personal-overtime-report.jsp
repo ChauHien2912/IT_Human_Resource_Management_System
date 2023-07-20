@@ -66,7 +66,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <%
+                                            <%                                
                                                 int count = 1;
                                                 String status = null;
                                                 for (OverTimeReport_DTO report : listReport) {
@@ -77,6 +77,11 @@
                                                 <td><%=count%></td>
                                                 <td><%=report.getDateOT()%></td>
                                                 <td><%=report.getDateType()%></td>
+                                                <%
+                                                    if (report.getDateName() == null) {
+                                                        report.setDateName("None");
+                                                    }
+                                                %>
                                                 <td><%=report.getDateName()%></td>
                                                 <td><%=report.getOtHours()%></td>
                                                 <td><%=report.getCoSalary()%></td>
@@ -84,18 +89,18 @@
                                                     if (report.getReason() == null || report.getReason().isEmpty()) {
                                                 %>
                                                 <td>None</td>
-                                                <%
+                                                <%    
                                                 } else {
                                                 %>
                                                 <td><%=report.getReason()%></td>
                                                 <%
                                                     }
                                                 %>
-                                                <%
+                                                <%    
                                                     if (report.isIsStatus() == null) {
                                                         status = "Waiting";
                                                 %>
-                                                <%
+                                                <%        
                                                     } else if (report.isIsStatus() == true) {
                                                         status = "Approved";
                                                     } else {
@@ -107,14 +112,14 @@
                                                     if (report.getReasonReject() == null || report.getReasonReject().isEmpty()) {
                                                 %>
                                                 <td>None</td>
-                                                <%
+                                                <%    
                                                 } else {
                                                 %>
                                                 <td><%=report.getReasonReject()%></td>
                                                 <%
                                                     }
                                                 %>
-                                                <%
+                                                <%    
                                                     if (status.equals("Waiting") || status.equals("Rejected")) {
                                                 %>
                                             <input type="hidden" name="overTimeID" value="<%=report.getOverTimeId()%>">
@@ -128,17 +133,17 @@
                                             %>
                                             </tr>
                                         </form>
-                                        <%
+                                        <%    
                                                 count += 1;
                                             }
                                         %>
 
                                         </tbody>
                                     </table>
-                                    <%
+                                    <%    
                                         }
                                     %>
-                                    <%
+                                    <%    
                                         String message = (String) request.getAttribute("MESSAGE");
                                         if (message != null) {
                                     %>

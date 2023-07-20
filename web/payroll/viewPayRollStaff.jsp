@@ -44,17 +44,17 @@
                                     <table class="table">               <thead>
                 <tr>
                     <th>Pay ID</th>
-                    <th>employee ID</th>
-                    <th>paid Date</th>
-                    <th>office Hours</th>
-                    <th>ot Hours</th>
-                    <th>ot_income</th>
-                    <th>stand_income</th>
+                    <th>Employee ID</th>
+                    <th>Month</th>
+                    <th>Office Hours</th>
+                    <th>Ot Hours</th>
+                    <th>Ot_income</th>
+                    <th>Stand_income</th>
                     <th>BHXH</th>
                     <th>BHTN</th>
                     <th>TNCN</th>
-                    <th>allowance</th>
-                    <th>total</th>
+                    <th>Allowance</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@
                 <tr>   
                     <td><%= payRoll.getPayID()%></td>
                     <td><%= payRoll.getEmployeeID()%></td>
-                    <td><%= payRoll.getPaidDate()%></td>
+                    <td><%= payRoll.getMonth()%></td>
                     <td><%= payRoll.getOfficeHours()%></td>
                     <td><%= payRoll.getOtHours()%></td>
                     <td><%= payRoll.getOt_income()%></td>

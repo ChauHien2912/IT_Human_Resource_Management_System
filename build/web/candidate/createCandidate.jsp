@@ -102,6 +102,16 @@
                                 </div>
                             </div>
                             <div class="col-md-6 form-group">
+                                <br><h4>Phone Number</h4>
+                                <input style="width: 100%; height: 2.5em"  placeholder="0706600127" type="tel" name="phoneNumber"
+                                       value="<%=candidate.getPhoneNumber()%>" tabindex="4" required>
+                                <div class="errorMessage">  
+                                    <%= candidateError.getPhoneNumberError()%>                       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6 form-group">
                                 <br><h4>Notation</h4>
                                 <input style="width: 100%; height: 2.5em" placeholder="Type your Message Here...." type="text" 
                                        name="notation" value="<%=candidate.getNotation()%>" 
@@ -110,11 +120,9 @@
                                     <%= candidateError.getNotationError()%>                       
                                 </div>  
                             </div>
-                        </div>
-                        <div class="row mb-2">
                             <div class="col-md-6 form-group">
 
-                               <br><h4>Image</h4>
+                                <br><h4>Image</h4>
                                 <input style="width: 100%; height: 2.5em" type="file" name="image" tabindex="10" required>  
                                 <div class="errorMessage">  
                                     <%= candidateError.getImageError()%>                       

@@ -30,7 +30,7 @@ public class CandidateController extends HttpServlet {
     private static final String USER_LOGIN = "Login";
     private static final String USER_LOGIN_CONTROLLER = "LoginController";
 
-    private static final String CANDIDATE_CREATE = "Create Candidate";
+    private static final String CANDIDATE_CREATE = "Create";
     private static final String CANDIDATE_CREATE_CONTROLLER = "CreateCandidateController";
 
     private static final String CANDIDATE_SEARCH = "Search Candidate";

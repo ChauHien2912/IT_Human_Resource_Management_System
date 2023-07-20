@@ -93,7 +93,7 @@ public class ChangePasswordController extends HttpServlet {
             log("error at ChangPasswordController: " + e.toString());
         } finally {
             request.setAttribute("URL", url);
-            request.getRequestDispatcher(URL).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

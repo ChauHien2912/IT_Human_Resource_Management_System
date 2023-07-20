@@ -50,10 +50,6 @@
                             <li><a href="#" class="includeButton" data-url="EmployeeController?action=Show Information">User Profile</a></li>
 
                             <li><a href="EmployeeController?action=Search Employee&search=&statusActive=All" >Staff Information</a></li>
-
-                            <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRoll">View Pay Roll</a></li>
-
-                            <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRollStaff">View PayRoll Staff</a></li>
                         </ul>
                     </li>
                     <!--Overtime-->
@@ -81,6 +77,14 @@
                             <li><a href="#" class="includeButton" data-url="candidate/createCandidate.jsp">Create</a></li>
                             <li><a href="CandidateController?action=Search Candidate&searchFromSideBar=True&search=">View candidate</a></li>
                             <li><a href="ContractController?action=Search Contract&search=&statusContract=All">Candidate Contract</a></li>
+                        </ul>
+                    </li>
+                    <!--Payroll-->
+                    <li>
+                        <a href="#payrollSubmenu" data-bs-toggle="collapse" aria-expanded="false"><i class="bi bi-newspaper"></i> Payroll</a>
+                        <ul class="collapse list-unstyled" id="payrollSubmenu">
+                            <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRoll">View Personal Payroll</a></li>
+                            <li><a href="#" class="includeButton" data-url="PayrollController?action=ViewPayRollStaff">View Payroll Staff</a></li>
                         </ul>
                     </li>
                 </ul>

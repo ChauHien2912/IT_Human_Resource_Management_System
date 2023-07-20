@@ -92,7 +92,8 @@
                             </div>
 
                             <div class="">
-                                <img src="image_1.jpg" width="50" height="50" alt="" class="rounded-circle">
+                                <img src="<%=userLogin.getImage()%>" alt="Image of contract"
+                                     width="60" height="60" alt="" class="rounded-circle">
                             </div>
                         </div>
 
